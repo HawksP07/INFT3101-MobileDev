@@ -14,33 +14,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: '2AIR'),
-      routes: {
-        '/login': (context) => const LoginPage(),
-        '/settings': (context) => const SettingsPage(),
-        '/signup': (context) => const SignupPage(),
-      }
-    );
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false, // hide debug banner
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // TRY THIS: Try running your application with "flutter run". You'll see
+          // the application has a purple toolbar. Then, without quitting the app,
+          // try changing the seedColor in the colorScheme below to Colors.green
+          // and then invoke "hot reload" (save your changes or press the "hot
+          // reload" button in a Flutter-supported IDE, or press "r" if you used
+          // the command line to start the app).
+          //
+          // Notice that the counter didn't reset back to zero; the application
+          // state is not lost during the reload. To reset the state, use hot
+          // restart instead.
+          //
+          // This works for code too, not just values: Most code changes can be
+          // tested with just a hot reload.
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 255, 255, 255)),
+          useMaterial3: true,
+        ),
+        home: const MyHomePage(title: '2AIR'),
+        routes: {
+          '/login': (context) => const LoginPage(),
+          '/settings': (context) => const SettingsPage(),
+          '/signup': (context) => const SignupPage(),
+        });
   }
 }
 
@@ -63,7 +64,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -80,16 +80,19 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.white,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(
-          widget.title,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-          )
-        ),
+        title: Text(widget.title,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         actions: [
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: Icon(Icons.perm_identity)),
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: Icon(Icons.settings))
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              },
+              icon: Icon(Icons.perm_identity)),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/settings');
+              },
+              icon: Icon(Icons.settings))
         ],
       ),
       body: Container(
@@ -104,17 +107,15 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(
-              height: 171
-            ),
+            const SizedBox(height: 171),
             const Text(
               'KOREAN QUIZ',
-              style: TextStyle(color: Colors.white, fontSize: 44, fontWeight: FontWeight.bold),
-              
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 44,
+                  fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 28
-            ),
+            const SizedBox(height: 28),
             const SizedBox(
               width: 376,
               child: Text(
@@ -123,165 +124,127 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            const SizedBox(
-              height: 20
-            ),
+            const SizedBox(height: 20),
             SizedBox(
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                onPressed: null, 
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
-                ),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
+                  onPressed: null,
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  child: Stack(fit: StackFit.expand, children: [
                     Ink(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/btn-dark.png'),
-                          fit: BoxFit.cover
-                        )
-                      ),
-
+                          borderRadius: BorderRadius.circular(8),
+                          image: const DecorationImage(
+                              image: AssetImage('assets/btn-dark.png'),
+                              fit: BoxFit.cover)),
                     ),
-                    const Row (
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(width: 20),
-                        Icon(
-                          Icons.style_outlined,
-                          color: Colors.white,
-                          size: 44,
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          'Vocabulary Card',
-                          style: TextStyle(
+                    const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 20),
+                          Icon(
+                            Icons.style_outlined,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24
-                          )
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ),
+                            size: 44,
+                          ),
+                          SizedBox(width: 20),
+                          Text('Vocabulary Card',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24))
+                        ])
+                  ])),
             ),
-            const SizedBox(
-              height: 20
-            ),
+            const SizedBox(height: 20),
             SizedBox(
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                onPressed: null, 
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
-                ),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
+                  onPressed: null,
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  child: Stack(fit: StackFit.expand, children: [
                     Ink(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/btn-dark.png'),
-                          fit: BoxFit.cover
-                        )
-                      ),
-
+                          borderRadius: BorderRadius.circular(8),
+                          image: const DecorationImage(
+                              image: AssetImage('assets/btn-dark.png'),
+                              fit: BoxFit.cover)),
                     ),
-                    const Row (
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(width: 20),
-                        Icon(
-                          Icons.library_add_check_outlined,
-                          color: Colors.white,
-                          size: 44,
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          'Multiple Choice',
-                          style: TextStyle(
+                    const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 20),
+                          Icon(
+                            Icons.library_add_check_outlined,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24
-                          )
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ),
+                            size: 44,
+                          ),
+                          SizedBox(width: 20),
+                          Text('Multiple Choice',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24))
+                        ])
+                  ])),
             ),
-            const SizedBox(
-              height: 20
-            ),
+            const SizedBox(height: 20),
             SizedBox(
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                onPressed: null, 
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
-                ),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
+                  onPressed: null,
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  child: Stack(fit: StackFit.expand, children: [
                     Ink(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/btn-dark.png'),
-                          fit: BoxFit.cover
-                        )
-                      ),
-
+                          borderRadius: BorderRadius.circular(8),
+                          image: const DecorationImage(
+                              image: AssetImage('assets/btn-dark.png'),
+                              fit: BoxFit.cover)),
                     ),
-                    const Row (
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SizedBox(width: 20),
-                        Icon(
-                          Icons.textsms_outlined,
-                          color: Colors.white,
-                          size: 44,
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          'Short Answer',
-                          style: TextStyle(
+                    const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(width: 20),
+                          Icon(
+                            Icons.textsms_outlined,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24
-                          )
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ),
+                            size: 44,
+                          ),
+                          SizedBox(width: 20),
+                          Text('Short Answer',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24))
+                        ])
+                  ])),
             ),
             const SizedBox(height: 103),
-          const Text(
+            const Text(
               'INFT 3101 Mobile Development',
               style: TextStyle(color: Colors.white, fontSize: 18),
-              
-          ),
-          const Text(
-            '\u00a9 2024 2AIR',
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-            
-          ),
+            ),
+            const Text(
+              '\u00a9 2024 2AIR',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),
