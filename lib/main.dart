@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inft3101_group12_language_app/pages/login.dart';
+import 'package:inft3101_group12_language_app/pages/settings.dart';
+import 'package:inft3101_group12_language_app/pages/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,10 +31,15 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: '2AIR'),
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/settings': (context) => const SettingsPage(),
+        '/signup': (context) => const SignupPage(),
+      }
     );
   }
 }
@@ -55,18 +63,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,45 +77,214 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.white,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold
+          )
+        ),
+        actions: [
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: Icon(Icons.perm_identity)),
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: Icon(Icons.settings))
+        ],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: Container(
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/bg-dark.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(
+              height: 171
+            ),
             const Text(
-              'You have pushed the button this many times:',
+              'KOREAN QUIZ',
+              style: TextStyle(color: Colors.white, fontSize: 44, fontWeight: FontWeight.bold),
+              
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            const SizedBox(
+              height: 28
             ),
+            const SizedBox(
+              width: 376,
+              child: Text(
+                'Dive Into Building Your Korean with interactive quizzes',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+            const SizedBox(
+              height: 20
+            ),
+            SizedBox(
+              width: 312,
+              height: 77.72,
+              child: ElevatedButton(
+                onPressed: null, 
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
+                ),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Ink(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/btn-dark.png'),
+                          fit: BoxFit.cover
+                        )
+                      ),
+
+                    ),
+                    const Row (
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 20),
+                        Icon(
+                          Icons.style_outlined,
+                          color: Colors.white,
+                          size: 44,
+                        ),
+                        SizedBox(width: 20),
+                        Text(
+                          'Vocabulary Card',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24
+                          )
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ),
+            ),
+            const SizedBox(
+              height: 20
+            ),
+            SizedBox(
+              width: 312,
+              height: 77.72,
+              child: ElevatedButton(
+                onPressed: null, 
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
+                ),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Ink(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/btn-dark.png'),
+                          fit: BoxFit.cover
+                        )
+                      ),
+
+                    ),
+                    const Row (
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 20),
+                        Icon(
+                          Icons.library_add_check_outlined,
+                          color: Colors.white,
+                          size: 44,
+                        ),
+                        SizedBox(width: 20),
+                        Text(
+                          'Multiple Choice',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24
+                          )
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ),
+            ),
+            const SizedBox(
+              height: 20
+            ),
+            SizedBox(
+              width: 312,
+              height: 77.72,
+              child: ElevatedButton(
+                onPressed: null, 
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
+                ),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Ink(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/btn-dark.png'),
+                          fit: BoxFit.cover
+                        )
+                      ),
+
+                    ),
+                    const Row (
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(width: 20),
+                        Icon(
+                          Icons.textsms_outlined,
+                          color: Colors.white,
+                          size: 44,
+                        ),
+                        SizedBox(width: 20),
+                        Text(
+                          'Short Answer',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24
+                          )
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ),
+            ),
+            const SizedBox(height: 103),
+          const Text(
+              'INFT 3101 Mobile Development',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+              
+          ),
+          const Text(
+            '\u00a9 2024 2AIR',
+            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            
+          ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
