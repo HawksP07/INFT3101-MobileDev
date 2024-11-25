@@ -5,8 +5,16 @@ import 'package:inft3101_group12_language_app/pages/multiplechoice.dart';
 import 'package:inft3101_group12_language_app/pages/settings.dart';
 import 'package:inft3101_group12_language_app/pages/shortanswer.dart';
 import 'package:inft3101_group12_language_app/pages/signup.dart';
+import 'backend/db.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await mongoDatabase.connect();
+    print("Successfully connected to MongoDB.");
+  } catch (e) {
+    print("Error connecting to MongoDB: $e");
+  }
   runApp(const MyApp());
 }
 
@@ -93,12 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, '/login');
               },
-              icon: Icon(Icons.perm_identity)),
+              icon: const Icon(Icons.perm_identity)),
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/settings');
               },
-              icon: Icon(Icons.settings))
+              icon: const Icon(Icons.settings))
         ],
       ),
       body: Container(
@@ -135,7 +143,9 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, '/flashcard');},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/flashcard');
+                  },
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
@@ -171,7 +181,9 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, '/multiplechoice');},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/multiplechoice');
+                  },
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
@@ -207,7 +219,9 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, '/shortanswer');},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/shortanswer');
+                  },
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(

@@ -35,8 +35,8 @@ class MultipleChoicePage extends StatelessWidget {
           )
         ),
         actions: [
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: Icon(Icons.perm_identity)),
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: Icon(Icons.settings))
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: const Icon(Icons.perm_identity)),
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: const Icon(Icons.settings))
         ],
       ),
       body: Container(
@@ -305,7 +305,7 @@ class MultipleChoicePage extends StatelessWidget {
                       Navigator.pushNamed(context, '/signup');
                     }, 
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
+                      backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)
                       ))
