@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inft3101_group12_language_app/pages/login.dart';
+import 'package:inft3101_group12_language_app/pages/flashcard.dart';
+import 'package:inft3101_group12_language_app/pages/multiplechoice.dart';
 import 'package:inft3101_group12_language_app/pages/settings.dart';
+import 'package:inft3101_group12_language_app/pages/shortanswer.dart';
 import 'package:inft3101_group12_language_app/pages/signup.dart';
 
 void main() {
@@ -41,6 +44,9 @@ class MyApp extends StatelessWidget {
           '/login': (context) => const LoginPage(),
           '/settings': (context) => const SettingsPage(),
           '/signup': (context) => const SignupPage(),
+          '/flashcard': (context) => const FlashCardPage(),
+          '/multiplechoice': (context) => const MultipleChoicePage(),
+          '/shortanswer': (context) => const ShortAnswerPage(),
         });
   }
 }
@@ -129,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {Navigator.pushNamed(context, '/flashcard');},
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
@@ -165,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {Navigator.pushNamed(context, '/multiplechoice');},
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
@@ -201,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 312,
               height: 77.72,
               child: ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {Navigator.pushNamed(context, '/shortanswer');},
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
