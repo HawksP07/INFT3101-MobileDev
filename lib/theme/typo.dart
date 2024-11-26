@@ -42,7 +42,7 @@ class AppTypography {
   static TextStyle buttonTextDark(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 4.3, // 2.4 rem
+      fontSizeRem: 4.3,
       fontWeight: FontWeight.w500,
       color: Colors.white,
     );
@@ -52,9 +52,9 @@ class AppTypography {
   static TextStyle copywriteDark(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 1.8, // 1.8 rem
-      fontWeight: FontWeight.w400,
-      color: AppColors.gray,
+      fontSizeRem: 2.5,
+      fontWeight: FontWeight.w300,
+      color: Colors.white,
     );
   }
 }
