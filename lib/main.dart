@@ -5,6 +5,8 @@ import 'package:inft3101_group12_language_app/pages/multiplechoice.dart';
 import 'package:inft3101_group12_language_app/pages/settings.dart';
 import 'package:inft3101_group12_language_app/pages/shortanswer.dart';
 import 'package:inft3101_group12_language_app/pages/signup.dart';
+import './theme/typo.dart';
+import './utils/responsive.dart';
 
 void main() {
   runApp(const MyApp());
@@ -93,166 +95,200 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, '/login');
               },
-              icon: Icon(Icons.perm_identity)),
+              icon: const Icon(Icons.perm_identity)),
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/settings');
               },
-              icon: Icon(Icons.settings))
+              icon: const Icon(Icons.settings))
         ],
       ),
-      body: Container(
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/bg-dark.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 171),
-            const Text(
-              'KOREAN QUIZ',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 44,
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 28),
-            const SizedBox(
-              width: 376,
-              child: Text(
-                'Dive Into Building Your Korean with interactive quizzes',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 24),
+      body: Stack(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/bg-dark.jpg'),
+                fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 312,
-              height: 77.72,
-              child: ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, '/flashcard');},
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                  child: Stack(fit: StackFit.expand, children: [
-                    Ink(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: const DecorationImage(
-                              image: AssetImage('assets/btn-dark.png'),
-                              fit: BoxFit.cover)),
-                    ),
-                    const Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(width: 20),
-                          Icon(
-                            Icons.style_outlined,
-                            color: Colors.white,
-                            size: 44,
-                          ),
-                          SizedBox(width: 20),
-                          Text('Vocabulary Card',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24))
-                        ])
-                  ])),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                    height: Responsive.heightPercentage(
+                        context, 15)), // 15% of view height
+                Text(
+                  'KOREAN QUIZ',
+                  style: AppTypography.mainTitleDark(context),
+                ),
+                SizedBox(height: Responsive.heightPercentage(context, 2)), //
+                SizedBox(
+                  width:
+                      Responsive.widthPercentage(context, 90), // 90% view width
+                  child: Text(
+                    'Dive Into Building Your Korean with interactive quizzes',
+                    textAlign: TextAlign.center,
+                    style: AppTypography.mainDescriptionDark(context),
+                  ),
+                ),
+                SizedBox(height: Responsive.heightPercentage(context, 2)), //
+                SizedBox(
+                  width: 312,
+                  height: 77.72,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/flashcard');
+                      },
+                      style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8))),
+                      child: Stack(fit: StackFit.expand, children: [
+                        Ink(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              image: const DecorationImage(
+                                  image: AssetImage('assets/btn-dark.png'),
+                                  fit: BoxFit.cover)),
+                        ),
+                        Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                  height:
+                                      Responsive.heightPercentage(context, 2)),
+                              const Icon(
+                                Icons.style_outlined,
+                                color: Colors.white,
+                                size: 44,
+                              ),
+                              const SizedBox(width: 20),
+                              Builder(
+                                builder: (context) {
+                                  return Text(
+                                    'Vocabulary Card',
+                                    style:
+                                        AppTypography.buttonTextDark(context),
+                                  );
+                                },
+                              ),
+                            ])
+                      ])),
+                ),
+                SizedBox(height: Responsive.heightPercentage(context, 3)),
+                SizedBox(
+                  width: 312,
+                  height: 77.72,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/multiplechoice');
+                      },
+                      style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8))),
+                      child: Stack(fit: StackFit.expand, children: [
+                        Ink(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              image: const DecorationImage(
+                                  image: AssetImage('assets/btn-dark.png'),
+                                  fit: BoxFit.cover)),
+                        ),
+                        Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(width: 20),
+                              const Icon(
+                                Icons.library_add_check_outlined,
+                                color: Colors.white,
+                                size: 44,
+                              ),
+                              const SizedBox(width: 20),
+                              Builder(
+                                builder: (context) {
+                                  return Text(
+                                    'Multiple Choice',
+                                    style:
+                                        AppTypography.buttonTextDark(context),
+                                  );
+                                },
+                              ),
+                            ])
+                      ])),
+                ),
+                SizedBox(height: Responsive.heightPercentage(context, 3)),
+                SizedBox(
+                  width: 312,
+                  height: 77.72,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/shortanswer');
+                      },
+                      style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8))),
+                      child: Stack(fit: StackFit.expand, children: [
+                        Ink(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              image: const DecorationImage(
+                                  image: AssetImage('assets/btn-dark.png'),
+                                  fit: BoxFit.cover)),
+                        ),
+                        Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const SizedBox(width: 20),
+                              const Icon(
+                                Icons.textsms_outlined,
+                                color: Colors.white,
+                                size: 44,
+                              ),
+                              const SizedBox(width: 20),
+                              Builder(
+                                builder: (context) {
+                                  return Text(
+                                    'Short Answer',
+                                    style:
+                                        AppTypography.buttonTextDark(context),
+                                  );
+                                },
+                              ),
+                            ])
+                      ])),
+                ),
+                const Spacer(), // space
+              ],
             ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 312,
-              height: 77.72,
-              child: ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, '/multiplechoice');},
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                  child: Stack(fit: StackFit.expand, children: [
-                    Ink(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: const DecorationImage(
-                              image: AssetImage('assets/btn-dark.png'),
-                              fit: BoxFit.cover)),
-                    ),
-                    const Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(width: 20),
-                          Icon(
-                            Icons.library_add_check_outlined,
-                            color: Colors.white,
-                            size: 44,
-                          ),
-                          SizedBox(width: 20),
-                          Text('Multiple Choice',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24))
-                        ])
-                  ])),
+          ),
+
+          // Footer positioned at the bottom
+          Positioned(
+            bottom: Responsive.heightPercentage(context, 5), // 10% from bottom
+            left: 0,
+            right: 0,
+            child: Column(
+              children: [
+                Text(
+                  'INFT 3101 Mobile Development',
+                  textAlign: TextAlign.center,
+                  style: AppTypography.copywriteDark(context),
+                ),
+                Text(
+                  '\u00a9 2024 2AIR',
+                  textAlign: TextAlign.center,
+                  style: AppTypography.copywriteDark(context),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 312,
-              height: 77.72,
-              child: ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, '/shortanswer');},
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                  child: Stack(fit: StackFit.expand, children: [
-                    Ink(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: const DecorationImage(
-                              image: AssetImage('assets/btn-dark.png'),
-                              fit: BoxFit.cover)),
-                    ),
-                    const Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          SizedBox(width: 20),
-                          Icon(
-                            Icons.textsms_outlined,
-                            color: Colors.white,
-                            size: 44,
-                          ),
-                          SizedBox(width: 20),
-                          Text('Short Answer',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24))
-                        ])
-                  ])),
-            ),
-            const SizedBox(height: 103),
-            const Text(
-              'INFT 3101 Mobile Development',
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-            const Text(
-              '\u00a9 2024 2AIR',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
