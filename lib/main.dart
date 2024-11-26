@@ -120,12 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
               style: AppTypography.mainTitleDark(context),
             ),
             const SizedBox(height: 28),
-            const SizedBox(
+            SizedBox(
               width: 376,
               child: Text(
                 'Dive Into Building Your Korean with interactive quizzes',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 24),
+                style: AppTypography.mainDescriptionDark(context),
               ),
             ),
             const SizedBox(height: 20),
@@ -148,21 +148,24 @@ class _MyHomePageState extends State<MyHomePage> {
                               image: AssetImage('assets/btn-dark.png'),
                               fit: BoxFit.cover)),
                     ),
-                    const Row(
+                    Row(
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(width: 20),
-                          Icon(
+                          const SizedBox(width: 20),
+                          const Icon(
                             Icons.style_outlined,
                             color: Colors.white,
                             size: 44,
                           ),
-                          SizedBox(width: 20),
-                          Text('Vocabulary Card',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24))
+                          const SizedBox(width: 20),
+                          Builder(
+                            builder: (context) {
+                              return Text(
+                                'Vocabulary Card',
+                                style: AppTypography.buttonTextDark(context),
+                              );
+                            },
+                          ),
                         ])
                   ])),
             ),
@@ -186,21 +189,24 @@ class _MyHomePageState extends State<MyHomePage> {
                               image: AssetImage('assets/btn-dark.png'),
                               fit: BoxFit.cover)),
                     ),
-                    const Row(
+                    Row(
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(width: 20),
-                          Icon(
+                          const SizedBox(width: 20),
+                          const Icon(
                             Icons.library_add_check_outlined,
                             color: Colors.white,
                             size: 44,
                           ),
-                          SizedBox(width: 20),
-                          Text('Multiple Choice',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24))
+                          const SizedBox(width: 20),
+                          Builder(
+                            builder: (context) {
+                              return Text(
+                                'Multiple Choice',
+                                style: AppTypography.buttonTextDark(context),
+                              );
+                            },
+                          ),
                         ])
                   ])),
             ),
@@ -224,36 +230,36 @@ class _MyHomePageState extends State<MyHomePage> {
                               image: AssetImage('assets/btn-dark.png'),
                               fit: BoxFit.cover)),
                     ),
-                    const Row(
+                    Row(
                         // mainAxisAlignment: MainAxisAlignment.center,
                         // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          SizedBox(width: 20),
-                          Icon(
+                          const SizedBox(width: 20),
+                          const Icon(
                             Icons.textsms_outlined,
                             color: Colors.white,
                             size: 44,
                           ),
-                          SizedBox(width: 20),
-                          Text('Short Answer',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24))
+                          const SizedBox(width: 20),
+                          Builder(
+                            builder: (context) {
+                              return Text(
+                                'Short Answer',
+                                style: AppTypography.buttonTextDark(context),
+                              );
+                            },
+                          ),
                         ])
                   ])),
             ),
             const SizedBox(height: 103),
-            const Text(
+            Text(
               'INFT 3101 Mobile Development',
-              style: TextStyle(color: Colors.white, fontSize: 18),
+              style: AppTypography.copywriteDark(context),
             ),
-            const Text(
+            Text(
               '\u00a9 2024 2AIR',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
+              style: AppTypography.copywriteDark(context),
             ),
           ],
         ),

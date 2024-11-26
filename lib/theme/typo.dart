@@ -22,7 +22,7 @@ class AppTypography {
   static TextStyle mainTitleDark(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 4.5, // 4.5 rem
+      fontSizeRem: 6, // 4.5 rem
       fontWeight: FontWeight.bold,
       color: Colors.white,
     );
@@ -32,7 +32,7 @@ class AppTypography {
   static TextStyle mainDescriptionDark(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 2.4, // 2.4 rem
+      fontSizeRem: 3.5, // 2.4 rem
       fontWeight: FontWeight.w400,
       color: AppColors.lightGray,
     );
@@ -42,8 +42,8 @@ class AppTypography {
   static TextStyle buttonTextDark(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 2.4, // 2.4 rem
-      fontWeight: FontWeight.bold,
+      fontSizeRem: 4.3, // 2.4 rem
+      fontWeight: FontWeight.w500,
       color: Colors.white,
     );
   }
