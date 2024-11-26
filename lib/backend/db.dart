@@ -1,5 +1,6 @@
 // MongoDB Setup
-// ignore_for_file: constant_identifier_names, prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: constant_identifier_names, prefer_typing_uninitialized_variables, camel_case_types, avoid_print
+// ignore_for_file: unused_import
 
 import 'dart:developer';
 import 'dart:io';
@@ -25,30 +26,14 @@ class mongoDatabase {
   static var userCollection;
 
   static connect() async {
-  try {
-    final db = Db(MONGO_CONN_URL);
-    await db.open(secure: true); // Automatically handles SSL
-    print('Connected to MongoDB');
-    await db.close();
-  } catch (e) {
-    print('Error connecting to MongoDB: $e');
+    try {
+      final db = Db(MONGO_CONN_URL);
+      await db.open(secure: true); // Automatically handles SSL
+      print('Connected to MongoDB');
+      await db.close();
+    } 
+    catch (e) {
+      print('Error connecting to MongoDB: $e');
+    }
   }
-  }
-}
-
-// Function to handle user login
-void login() {
-  // Prompt user for username and password
-
-  // Retrieve credentials from the database based on the provided username
-
-  // Compare the provided password with the stored password
-
-  // If credentials match:
-  // Grant access to the user
-  // Redirect to the main page of the app
-
-  // Else:
-  // Deny access
-  // Show an error message (e.g., "Invalid username or password")
 }

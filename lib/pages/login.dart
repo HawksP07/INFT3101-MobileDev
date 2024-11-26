@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:inft3101_group12_language_app/backend/db.dart';
+import 'package:inft3101_group12_language_app/backend/authentication.dart';
+
 
 class LoginPage extends StatelessWidget {
+  
   const LoginPage({super.key});
 
   @override
@@ -106,7 +108,30 @@ class LoginPage extends StatelessWidget {
                       height: 44,
                       child: ElevatedButton(
                           onPressed: () {
-                            login();
+                            final TextEditingController usernameController = TextEditingController();
+                            final TextEditingController passwordController = TextEditingController();
+  
+                            // Method to handle user login
+                            void login(BuildContext context) {
+                              // Get input values
+                              String username = usernameController.text;
+                              String password = passwordController.text;
+
+                              // Authenticate the user
+                              bool isAuthenticated = Authentication.login(username, password);
+
+                              if (isAuthenticated) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Login Successful')),
+                                );
+                                // Navigate to the main page
+                                Navigator.pushNamed(context, '/mainPage');
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Invalid Username or Password')),
+                                );
+                              }
+                            }
                           },
                           style: ButtonStyle(
                               backgroundColor: const WidgetStatePropertyAll(

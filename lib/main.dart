@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:inft3101_group12_language_app/pages/login.dart';
 import 'package:inft3101_group12_language_app/pages/flashcard.dart';
