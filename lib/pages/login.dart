@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inft3101_group12_language_app/backend/authentication.dart';
 
+final TextEditingController usernameController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
 
 class LoginPage extends StatelessWidget {
   
@@ -50,6 +52,7 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 width: 312.00,
                 child: TextField(
+                  controller: usernameController,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -69,6 +72,7 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 width: 312.00,
                 child: TextField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -108,8 +112,6 @@ class LoginPage extends StatelessWidget {
                       height: 44,
                       child: ElevatedButton(
                           onPressed: () {
-                            final TextEditingController usernameController = TextEditingController();
-                            final TextEditingController passwordController = TextEditingController();
   
                             // Get input values
                             String username = usernameController.text;
@@ -125,9 +127,8 @@ class LoginPage extends StatelessWidget {
                                   content: Text('Login Successful')
                                 ),
                               );
-
                               // Navigate to the main page
-                              Navigator.pushNamed(context, '/mainPage');
+                              Navigator.pushNamed(context, '/');
                             } 
                             else {
                               ScaffoldMessenger
