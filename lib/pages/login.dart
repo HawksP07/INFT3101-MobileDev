@@ -111,26 +111,32 @@ class LoginPage extends StatelessWidget {
                             final TextEditingController usernameController = TextEditingController();
                             final TextEditingController passwordController = TextEditingController();
   
-                            // Method to handle user login
-                            void login(BuildContext context) {
-                              // Get input values
-                              String username = usernameController.text;
-                              String password = passwordController.text;
+                            // Get input values
+                            String username = usernameController.text;
+                            String password = passwordController.text;
+                            bool isAuthenticated = Authentication.login(username, password);
 
-                              // Authenticate the user
-                              bool isAuthenticated = Authentication.login(username, password);
+                            if (isAuthenticated) 
+                            {
+                              ScaffoldMessenger
+                              .of(context)
+                              .showSnackBar(
+                                const SnackBar(
+                                  content: Text('Login Successful')
+                                ),
+                              );
 
-                              if (isAuthenticated) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Login Successful')),
-                                );
-                                // Navigate to the main page
-                                Navigator.pushNamed(context, '/mainPage');
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Invalid Username or Password')),
-                                );
-                              }
+                              // Navigate to the main page
+                              Navigator.pushNamed(context, '/mainPage');
+                            } 
+                            else {
+                              ScaffoldMessenger
+                              .of(context)
+                              .showSnackBar(
+                                const SnackBar(
+                                  content: Text('Invalid Username or Password')
+                                  ),
+                              );
                             }
                           },
                           style: ButtonStyle(

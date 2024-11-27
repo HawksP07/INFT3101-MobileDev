@@ -15,9 +15,8 @@ Future<void> main() async {
   try {
     await mongoDatabase.connect();
     print("Successfully connected to MongoDB.");
-  } catch (e) {
-    print("Error connecting to MongoDB: $e");
-  }
+  } 
+  catch (e) {print("Error connecting to MongoDB: $e");}
   runApp(const MyApp());
 }
 

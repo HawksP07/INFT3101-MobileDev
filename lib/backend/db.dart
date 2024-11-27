@@ -4,7 +4,6 @@
 
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:mongo_dart/mongo_dart.dart';
 
 // username = "admin";
@@ -32,8 +31,6 @@ class mongoDatabase {
       print('Connected to MongoDB');
       await db.close();
     } 
-    catch (e) {
-      print('Error connecting to MongoDB: $e');
-    }
+    catch (e) {print('Error connecting to MongoDB: $e');}
   }
 }

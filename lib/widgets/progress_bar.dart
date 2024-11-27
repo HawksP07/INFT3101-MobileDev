@@ -8,15 +8,13 @@ class QuizProgressBar extends StatefulWidget {
 
   const QuizProgressBar({super.key, required this.quizes});
 
-  @override
-  _QuizProgressBarState createState() => _QuizProgressBarState();
+  @override _QuizProgressBarState createState() => _QuizProgressBarState();
 }
 
 class _QuizProgressBarState extends State<QuizProgressBar> {
   String? selectedTopic;
 
-  @override
-  Widget build(BuildContext context) {
+  @override Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -38,10 +36,12 @@ class _QuizProgressBarState extends State<QuizProgressBar> {
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
-                    setState(() {
-                      selectedTopic = newValue;
-                    });
-                  },
-                ))));
+                    setState(() {selectedTopic = newValue;}
+              );
+            },
+          )
+        )
+      )
+    );
   }
 }
