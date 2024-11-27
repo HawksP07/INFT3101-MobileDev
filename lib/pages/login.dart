@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:inft3101_group12_language_app/backend/authentication.dart';
+//import 'package:inft3101_group12_language_app/backend/authentication.dart';
+import 'package:inft3101_group12_language_app/backend/db.dart';
 
 final TextEditingController usernameController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
 class LoginPage extends StatelessWidget {
-  
   const LoginPage({super.key});
 
   @override
@@ -111,32 +111,25 @@ class LoginPage extends StatelessWidget {
                       width: 150,
                       height: 44,
                       child: ElevatedButton(
-                          onPressed: () {
-  
+                          onPressed: () async {
                             // Get input values
                             String username = usernameController.text;
                             String password = passwordController.text;
-                            bool isAuthenticated = Authentication.login(username, password);
+                            bool isAuthenticated =
+                                await Authentication.login(username, password);
 
-                            if (isAuthenticated) 
-                            {
-                              ScaffoldMessenger
-                              .of(context)
-                              .showSnackBar(
+                            if (isAuthenticated) {
+                              ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Login Successful')
-                                ),
+                                    content: Text('Login Successful')),
                               );
                               // Navigate to the main page
                               Navigator.pushNamed(context, '/');
-                            } 
-                            else {
-                              ScaffoldMessenger
-                              .of(context)
-                              .showSnackBar(
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Invalid Username or Password')
-                                  ),
+                                    content:
+                                        Text('Invalid Username or Password')),
                               );
                             }
                           },

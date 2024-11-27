@@ -13,10 +13,11 @@ import 'backend/db.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    await mongoDatabase.connect();
+    await MongoDatabase.connect();
     print("Successfully connected to MongoDB.");
-  } 
-  catch (e) {print("Error connecting to MongoDB: $e");}
+  } catch (e) {
+    print("Error connecting to MongoDB: $e");
+  }
   runApp(const MyApp());
 }
 

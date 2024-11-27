@@ -1,10 +1,5 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, unused_import
 
-class Authentication {
-  static bool login(String username, String password) 
-  {
-    const validUsername = 'admin';
-    const validPassword = 'admin';
-    if (username == validUsername && password == validPassword) {return true;}  else {return false;}
-  }
-}
+import 'package:inft3101_group12_language_app/backend/db.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+
