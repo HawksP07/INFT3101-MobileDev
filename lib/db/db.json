@@ -1,0 +1,30 @@
+{
+    "users": [
+        {
+            "username": "testUser",
+            "password": "pass123",
+            "mc-score": 0,
+            "sa-score": 0
+        },
+        {
+            "username": "testUser2",
+            "password": "123pass",
+            "multiple-choice-score": 20,
+            "short-answer-score": 1
+        },
+        {
+            "username": "testUser3",
+            "password": "Weird@Pass_t3st",
+            "multiple-choice-score": 2,
+            "short-answer-score": 18
+        }
+    ],
+    "questions" : [
+        {
+            "type":"flashcard",
+            "question": 1, 
+            "question-text":"sample question",
+            "question-answer":"sample answer"
+        }
+    ]
+}

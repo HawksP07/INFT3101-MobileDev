@@ -1,7 +1,34 @@
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:inft3101_group12_language_app/db/user.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  List _users = [];
+
+  Future<void> fetchUsers() async {
+    // List<User> users = [];
+      final String response = await rootBundle.loadString('users.json');
+      final data = await json.decode(response);
+      setState(() {
+        _users = data['users'];
+        print("...number of users ${_users.length}");
+      });
+      
+  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   fetchUsers();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +140,9 @@ class LoginPage extends StatelessWidget {
                   width: 150,
                   height: 44,
                   child: ElevatedButton(
-                    onPressed: null, 
+                    onPressed: () {
+                      fetchUsers();
+                    }, 
                     style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
