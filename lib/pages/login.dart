@@ -14,16 +14,48 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   List _users = [];
 
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   Future<void> fetchUsers() async {
     // List<User> users = [];
       final String response = await rootBundle.loadString('users.json');
       final data = await json.decode(response);
       setState(() {
         _users = data['users'];
-        print("...number of users ${_users.length}");
+        print("User Population: ${_users.length}");
       });
       
   }
+
+  Future<void> login(String username, String password) async {
+  // Wait for the fetchUsers function to complete
+  await fetchUsers();
+
+  // debug stuff
+  print("Users loaded: $_users");
+  print("Password: $password");
+  print("Username: $username");
+
+  // Check for username and password match
+  bool userFound = false;
+  for (var user in _users) {
+    if (user['username'] == username && user['password'] == password) {
+      userFound = true;
+      break;
+    }
+  }
+
+  if (userFound) {
+    print("Login successful!");
+    Navigator.pushNamed(context, '/'); // Navigate to the main page
+  } else {
+    print("Invalid username or password.");
+    // Optionally show an error dialog or a Snackbar here
+  }
+}
+
+  
   // @override
   // void initState() {
   //   // TODO: implement initState
@@ -74,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             width: 312.00,
             child: TextField(
+              controller: usernameController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -96,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             width: 312.00,
             child: TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -142,7 +176,9 @@ class _LoginPageState extends State<LoginPage> {
                   height: 44,
                   child: ElevatedButton(
                     onPressed: () {
-                      fetchUsers();
+                      String username = usernameController.text;
+                      String password = passwordController.text;
+                      login(username, password);
                     }, 
                     style: ButtonStyle(
                       backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),

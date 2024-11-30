@@ -17,6 +17,12 @@
             "password": "Weird@Pass_t3st",
             "multiple-choice-score": 2,
             "short-answer-score": 18
+        },
+        {
+            "username": "admin",
+            "password": "admin",
+            "multiple-choice-score": 1,
+            "short-answer-score": 1
         }
     ]
 }
