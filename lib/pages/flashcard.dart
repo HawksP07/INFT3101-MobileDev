@@ -5,6 +5,7 @@ import '../theme/color.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/body_container.dart';
 import '../widgets/btn_end_quiz.dart';
+import '../widgets/bottom_nav.dart';
 
 class FlashCardPage extends StatelessWidget {
   const FlashCardPage({super.key});
@@ -115,6 +116,8 @@ class FlashCardPage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar:
+          const BottomNavBar(currentIndex: 1), // BottomNavBar widget
     );
   }
 }
