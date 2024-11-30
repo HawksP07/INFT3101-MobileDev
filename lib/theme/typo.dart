@@ -39,11 +39,21 @@ class AppTypography {
   }
 
   // Dark mode main button text
-  static TextStyle buttonTextDark(BuildContext context) {
+  static TextStyle mainButtonTextDark(BuildContext context) {
     return _base(
       context: context,
       fontSizeRem: 4.3,
       fontWeight: FontWeight.w500,
+      color: Colors.white,
+    );
+  }
+
+  // Dark mode main button text
+  static TextStyle buttonTextDark(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 3,
+      fontWeight: FontWeight.w400,
       color: Colors.white,
     );
   }
@@ -74,6 +84,16 @@ class AppTypography {
       context: context,
       fontSizeRem: 4,
       fontWeight: FontWeight.w300,
+      color: AppColors.darkGray,
+    );
+  }
+
+  // quiz text medium
+  static TextStyle textMediumSemiBold(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 4,
+      fontWeight: FontWeight.w400,
       color: AppColors.darkGray,
     );
   }

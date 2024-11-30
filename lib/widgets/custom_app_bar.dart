@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../theme/typo.dart';
+import '../theme/color.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
   const CustomAppBar({super.key, required this.title});
@@ -11,25 +13,25 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       title: Text(
         title,
-        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        style: AppTypography.mainTitleDark(context),
       ),
       actions: [
         IconButton(
           onPressed: () {
             Navigator.pushNamed(context, '/login');
           },
-          icon: const Icon(Icons.perm_identity),
+          icon: const Icon(Icons.perm_identity, color: AppColors.darkGray),
         ),
         IconButton(
           onPressed: () {
             Navigator.pushNamed(context, '/settings');
           },
-          icon: const Icon(Icons.settings),
+          icon: const Icon(Icons.settings, color: AppColors.darkGray),
         ),
       ],
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(56.0);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

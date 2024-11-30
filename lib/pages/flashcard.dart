@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../theme/typo.dart';
 import '../utils/responsive.dart';
 import '../theme/color.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/body_container.dart';
+import '../widgets/btn_end_quiz.dart';
 
 class FlashCardPage extends StatelessWidget {
   const FlashCardPage({super.key});
@@ -9,79 +12,17 @@ class FlashCardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          '2AIR',
-          style: AppTypography.mainTitleDark(context),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/login');
-            },
-            icon: const Icon(Icons.perm_identity, color: AppColors.primary),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/settings');
-            },
-            icon: const Icon(Icons.settings, color: AppColors.primary),
-          ),
-        ],
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/bg-dark.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
+      appBar: const CustomAppBar(title: '2AIR'), // CustomAppBar widget
+      body: BodyContainer(
+        // body container widget
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(Responsive.widthPercentage(context, 5)),
-              child: SizedBox(
-                width: Responsive.widthPercentage(context, 50),
-                height: Responsive.heightPercentage(context, 6),
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text(
-                          'Are you sure to end the quiz?',
-                          style: AppTypography.textMedium(context),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text('YES',
-                                style: AppTypography.buttonTextDark(context)),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    backgroundColor: AppColors.primary,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.drive_file_move_outlined,
-                          color: Colors.white),
-                      SizedBox(width: Responsive.widthPercentage(context, 2)),
-                      Text('End Quiz',
-                          style: AppTypography.buttonTextDark(context)),
-                    ],
-                  ),
-                ),
+              padding: EdgeInsets.only(
+                left: Responsive.widthPercentage(context, 3), // padding left
+                top: Responsive.heightPercentage(context, 2),
               ),
+              child: const BtnEndQuiz(),
             ),
             // Progress Bar Placeholder
             Padding(
