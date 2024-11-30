@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +49,8 @@ class _LoginPageState extends State<LoginPage> {
           )
         ),
         actions: [
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: Icon(Icons.perm_identity)),
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: Icon(Icons.settings))
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: const Icon(Icons.perm_identity)),
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: const Icon(Icons.settings))
         ],
       ),
       body: Container(
@@ -75,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
-                hintText: 'Email Address',
+                hintText: 'Username',
                 hintStyle: const TextStyle(
                   color: Color.fromARGB(255, 196, 196, 196)
                 ),
@@ -143,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                       fetchUsers();
                     }, 
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
+                      backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)
                       ))
@@ -168,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.pushNamed(context, '/signup');
                     }, 
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.white),
+                      backgroundColor: const WidgetStatePropertyAll(Colors.white),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)
                       ))

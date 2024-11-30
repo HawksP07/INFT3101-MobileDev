@@ -14,7 +14,7 @@ class MultipleChoicePage extends StatefulWidget {
 
 class _MultipleChoicePageState extends State<MultipleChoicePage> {
   List _questions = [];
-  List _mcQuestions = [];
+  final List _mcQuestions = [];
   var _currentQuestion = 0;
 
   Future<void> fetchQuestions() async {
@@ -53,7 +53,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
     // print("...All of foo: ${foo[0]['question-text']}");
     List bar = [];
     bar.add(foo[_currentQuestion]['question-answer'].toString().split(', '));
-    print("... bar: ${bar}, current question: ${_currentQuestion}");
+    print("... bar: $bar, current question: $_currentQuestion");
     final quizes = [
       'Q1: What is the Korean word for "Hello"?',
       'Q2: What is the Korean word for "Hello"? ',
@@ -83,8 +83,8 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
           )
         ),
         actions: [
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: Icon(Icons.perm_identity)),
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: Icon(Icons.settings))
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: const Icon(Icons.perm_identity)),
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: const Icon(Icons.settings))
         ],
       ),
       body: Container(
@@ -263,9 +263,9 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                     bar[0][0]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: WidgetStatePropertyAll(Colors.white),
-                  secondary: Icon(Icons.volume_up_outlined),
-                  visualDensity: VisualDensity(horizontal: -2, vertical: -2),
+                  fillColor: const WidgetStatePropertyAll(Colors.white),
+                  secondary: const Icon(Icons.volume_up_outlined),
+                  visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
               ],
@@ -291,9 +291,9 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                     bar[0][1]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: WidgetStatePropertyAll(Colors.white),
-                  secondary: Icon(Icons.volume_up_outlined),
-                  visualDensity: VisualDensity(horizontal: -2, vertical: -2),
+                  fillColor: const WidgetStatePropertyAll(Colors.white),
+                  secondary: const Icon(Icons.volume_up_outlined),
+                  visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
               ],
@@ -319,9 +319,9 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                     bar[0][2]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: WidgetStatePropertyAll(Colors.white),
-                  secondary: Icon(Icons.volume_up_outlined),
-                  visualDensity: VisualDensity(horizontal: -2, vertical: -2),
+                  fillColor: const WidgetStatePropertyAll(Colors.white),
+                  secondary: const Icon(Icons.volume_up_outlined),
+                  visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
               ],
@@ -347,9 +347,9 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                     bar[0][3]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: WidgetStatePropertyAll(Colors.white),
-                  secondary: Icon(Icons.volume_up_outlined),
-                  visualDensity: VisualDensity(horizontal: -2, vertical: -2),
+                  fillColor: const WidgetStatePropertyAll(Colors.white),
+                  secondary: const Icon(Icons.volume_up_outlined),
+                  visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
               ],
@@ -367,7 +367,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       Navigator.pushNamed(context, '/signup');
                     }, 
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
+                      backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)
                       ))
