@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class QuizProgressBar extends StatefulWidget {
   final List<String> quizes;
 
-  QuizProgressBar({required this.quizes});
+  const QuizProgressBar({super.key, required this.quizes});
 
   @override
   _QuizProgressBarState createState() => _QuizProgressBarState();

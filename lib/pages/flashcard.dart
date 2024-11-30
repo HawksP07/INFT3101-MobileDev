@@ -92,6 +92,64 @@ class _FlashCardPageState extends State<FlashCardPage> {
                 decoration: BoxDecoration(
                   color: AppColors.lightGray,
                   borderRadius: BorderRadius.circular(8),
+
+        actions: [
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: const Icon(Icons.perm_identity)),
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: const Icon(Icons.settings))
+        ],
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/bg-dark.jpg'),
+            fit: BoxFit.cover
+          )
+        ),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(28),
+                child:
+                SizedBox(
+              width: 160,
+              height: 44,
+              child: ElevatedButton(
+                  onPressed: null,
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  child: Stack(fit: StackFit.expand, children: [
+                    Ink(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: const DecorationImage(
+                              image: AssetImage('assets/btn-dark.png'),
+                              fit: BoxFit.cover)),
+                    ),
+                    const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(width: 20),
+                          Icon(
+                            Icons.drive_file_move_outlined,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          SizedBox(width: 20),
+                          Text('End Quiz',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18))
+                        ])
+                  ])),
                 ),
                 child: Stack(
                   children: [

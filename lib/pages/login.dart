@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -12,16 +14,48 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   List _users = [];
 
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   Future<void> fetchUsers() async {
     // List<User> users = [];
       final String response = await rootBundle.loadString('users.json');
       final data = await json.decode(response);
       setState(() {
         _users = data['users'];
-        print("...number of users ${_users.length}");
+        print("User Population: ${_users.length}");
       });
       
   }
+
+  Future<void> login(String username, String password) async {
+  // Wait for the fetchUsers function to complete
+  await fetchUsers();
+
+  // debug stuff
+  print("Users loaded: $_users");
+  print("Password: $password");
+  print("Username: $username");
+
+  // Check for username and password match
+  bool userFound = false;
+  for (var user in _users) {
+    if (user['username'] == username && user['password'] == password) {
+      userFound = true;
+      break;
+    }
+  }
+
+  if (userFound) {
+    print("Login successful!");
+    Navigator.pushNamed(context, '/'); // Navigate to the main page
+  } else {
+    print("Invalid username or password.");
+    // Optionally show an error dialog or a Snackbar here
+  }
+}
+
+  
   // @override
   // void initState() {
   //   // TODO: implement initState
@@ -47,8 +81,8 @@ class _LoginPageState extends State<LoginPage> {
           )
         ),
         actions: [
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: Icon(Icons.perm_identity)),
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: Icon(Icons.settings))
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: const Icon(Icons.perm_identity)),
+          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: const Icon(Icons.settings))
         ],
       ),
       body: Container(
@@ -72,10 +106,11 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             width: 312.00,
             child: TextField(
+              controller: usernameController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
-                hintText: 'Email Address',
+                hintText: 'Username',
                 hintStyle: const TextStyle(
                   color: Color.fromARGB(255, 196, 196, 196)
                 ),
@@ -94,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             width: 312.00,
             child: TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -140,10 +176,12 @@ class _LoginPageState extends State<LoginPage> {
                   height: 44,
                   child: ElevatedButton(
                     onPressed: () {
-                      fetchUsers();
+                      String username = usernameController.text;
+                      String password = passwordController.text;
+                      login(username, password);
                     }, 
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
+                      backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)
                       ))
@@ -168,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.pushNamed(context, '/signup');
                     }, 
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.white),
+                      backgroundColor: const WidgetStatePropertyAll(Colors.white),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)
                       ))
