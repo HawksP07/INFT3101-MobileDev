@@ -18,7 +18,7 @@ class AppTypography {
     );
   }
 
-  // Main title style
+  // Dark mode main title
   static TextStyle mainTitleDark(BuildContext context) {
     return _base(
       context: context,
@@ -28,7 +28,7 @@ class AppTypography {
     );
   }
 
-  // Description style
+  // Dark mode main description
   static TextStyle mainDescriptionDark(BuildContext context) {
     return _base(
       context: context,
@@ -38,7 +38,7 @@ class AppTypography {
     );
   }
 
-  // Button text style
+  // Dark mode main button text
   static TextStyle buttonTextDark(BuildContext context) {
     return _base(
       context: context,
@@ -48,13 +48,43 @@ class AppTypography {
     );
   }
 
-  // Copywrite text style
+  // Dark mode copywrite text style
   static TextStyle copywriteDark(BuildContext context) {
     return _base(
       context: context,
       fontSizeRem: 2.5,
       fontWeight: FontWeight.w300,
       color: Colors.white,
+    );
+  }
+
+  // quiz text large
+  static TextStyle quizTextLarge(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 6,
+      fontWeight: FontWeight.w500,
+      color: AppColors.darkGray,
+    );
+  }
+
+  // quiz text medium
+  static TextStyle textMedium(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 4,
+      fontWeight: FontWeight.w300,
+      color: AppColors.darkGray,
+    );
+  }
+
+  // quiz text small
+  static TextStyle textSmall(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 6, // 4.5 rem
+      fontWeight: FontWeight.w300,
+      color: AppColors.darkGray,
     );
   }
 }

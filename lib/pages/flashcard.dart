@@ -1,41 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
-import 'package:inft3101_group12_language_app/widgets/progress_bar.dart';
+import '../theme/typo.dart';
+import '../utils/responsive.dart';
+import '../theme/color.dart';
 
 class FlashCardPage extends StatelessWidget {
   const FlashCardPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final quizes = [
-      'Q1: Name',
-      'Q2: Age',
-      'Q3: Hometown',
-      'Q4: Hobby',
-      'Q5: Job/Occupation',
-      'Q6: Family',
-      'Q7: Personality',
-      'Q8: Special Skill',
-      'Q9: School',
-      'Q10: Friend',
-    ];
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
         backgroundColor: Colors.white,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text(
+        title: Text(
           '2AIR',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-          )
+          style: AppTypography.mainTitleDark(context),
         ),
         actions: [
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: Icon(Icons.perm_identity)),
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: Icon(Icons.settings))
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/login');
+            },
+            icon: const Icon(Icons.perm_identity, color: AppColors.primary),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+            icon: const Icon(Icons.settings, color: AppColors.primary),
+          ),
         ],
       ),
       body: Container(
@@ -43,148 +35,145 @@ class FlashCardPage extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/bg-dark.jpg'),
-            fit: BoxFit.cover
-          )
+            fit: BoxFit.cover,
+          ),
         ),
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(28),
-                child:
-                SizedBox(
-              width: 160,
-              height: 44,
-              child: ElevatedButton(
-                  onPressed: null,
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                  child: Stack(fit: StackFit.expand, children: [
-                    Ink(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: const DecorationImage(
-                              image: AssetImage('assets/btn-dark.png'),
-                              fit: BoxFit.cover)),
-                    ),
-                    const Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          SizedBox(width: 20),
-                          Icon(
-                            Icons.drive_file_move_outlined,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          SizedBox(width: 20),
-                          Text('End Quiz',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18))
-                        ])
-                  ])),
-                ),
-              )
-            ],
-          ),
-          QuizProgressBar(quizes: quizes),
-          const SizedBox(
-            height: 20
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8)
-            ), child: Padding(
-              padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(Responsive.widthPercentage(context, 5)),
               child: SizedBox(
-                height: 254,
-                width: 350,
-                child: Column(
-                  children: [
-                    const Row(
-                      children: [
-                        SizedBox(
-                          width: 329,
+                width: Responsive.widthPercentage(context, 50),
+                height: Responsive.heightPercentage(context, 6),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(
+                          'Are you sure to end the quiz?',
+                          style: AppTypography.textMedium(context),
                         ),
-                        Icon(
-                            Icons.volume_up_outlined,
-                            size: 21,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const SizedBox(
-                      height: 147,
-                      width: 350,
-                      child: Center(
-                        child: Text(
-                        'The term used to identify a person',
-                        style: TextStyle(
-                          color: Colors.black, 
-                          fontSize: 32,
-                        ),
-                        textAlign: TextAlign.center
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text('YES',
+                                style: AppTypography.buttonTextDark(context)),
+                          ),
+                        ],
                       ),
-                      ) 
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    const SizedBox(
-                      height: 25,
+                    backgroundColor: AppColors.primary,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.drive_file_move_outlined,
+                          color: Colors.white),
+                      SizedBox(width: Responsive.widthPercentage(context, 2)),
+                      Text('End Quiz',
+                          style: AppTypography.buttonTextDark(context)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Progress Bar Placeholder
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: Responsive.heightPercentage(context, 2),
+              ),
+              child: Container(
+                height: Responsive.heightPercentage(context, 2),
+                width: Responsive.widthPercentage(context, 80),
+                decoration: BoxDecoration(
+                  color: AppColors.lightGray,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Stack(
+                  children: [
+                    Container(
+                      width: Responsive.widthPercentage(context, 40), // 50%
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                    Row(
-                      // crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton.icon(
-                          onPressed: null, 
-                          label: const Text(
-                            'Previous',
-                            style: TextStyle(
-                              color: Colors.black
-                            ),
-                          ), 
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 115,
-                        ),
-                        TextButton.icon(
-                          onPressed: null, 
-                          iconAlignment: IconAlignment.end,
-                          label: const Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.black
-                            ),
-                          ), 
-                          icon: const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
             ),
-          ),
-        ],
-      )
+            const SizedBox(height: 20),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(Responsive.widthPercentage(context, 3)),
+                child: SizedBox(
+                  height: Responsive.heightPercentage(context, 40),
+                  width: Responsive.widthPercentage(context, 90),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(Icons.volume_up_outlined,
+                              size: Responsive.widthPercentage(context, 5),
+                              color: AppColors.darkGray),
+                        ],
+                      ),
+                      const Spacer(),
+                      Center(
+                        child: Text(
+                          'The term used to identify a person',
+                          style: AppTypography.quizTextLarge(context),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton.icon(
+                            onPressed: null,
+                            label: Text(
+                              'Previous',
+                              style: AppTypography.textMedium(context),
+                            ),
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: AppColors.gray,
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: null,
+                            iconAlignment: IconAlignment.end,
+                            label: Text(
+                              'Next',
+                              style: AppTypography.textMedium(context),
+                            ),
+                            icon: const Icon(
+                              Icons.arrow_forward,
+                              color: AppColors.gray,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-      bottomNavigationBar:const BottomNavBar(currentIndex: 0)
     );
   }
 }
