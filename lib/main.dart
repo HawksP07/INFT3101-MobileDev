@@ -170,8 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 builder: (context) {
                                   return Text(
                                     'Vocabulary Card',
-                                    style:
-                                        AppTypography.buttonTextDark(context),
+                                    style: AppTypography.mainButtonTextDark(
+                                        context),
                                   );
                                 },
                               ),
@@ -212,8 +212,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 builder: (context) {
                                   return Text(
                                     'Multiple Choice',
-                                    style:
-                                        AppTypography.buttonTextDark(context),
+                                    style: AppTypography.mainButtonTextDark(
+                                        context),
                                   );
                                 },
                               ),
@@ -255,8 +255,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 builder: (context) {
                                   return Text(
                                     'Short Answer',
-                                    style:
-                                        AppTypography.buttonTextDark(context),
+                                    style: AppTypography.mainButtonTextDark(
+                                        context),
                                   );
                                 },
                               ),

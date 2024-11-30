@@ -1,38 +1,98 @@
+import 'dart:convert'; // For JSON decoding
 import 'package:flutter/material.dart';
-import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
-import 'package:inft3101_group12_language_app/widgets/progress_bar.dart';
+import '../utils/responsive.dart';
+import '../theme/color.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/body_container.dart';
+import '../widgets/btn_end_quiz.dart';
+import '../widgets/bottom_nav.dart';
+import '../widgets/card.dart';
 
-class FlashCardPage extends StatelessWidget {
+class FlashCardPage extends StatefulWidget {
   const FlashCardPage({super.key});
+
+  @override
+  _FlashCardPageState createState() => _FlashCardPageState();
+}
+
+class _FlashCardPageState extends State<FlashCardPage> {
+  List<dynamic> _questions = []; // Holds the parsed questions
+  int _currentIndex = 0; // Tracks the current question index
+
+  @override
+  void initState() {
+    super.initState();
+    _loadQuestions(); // Load questions on initialization
+  }
+
+  Future<void> _loadQuestions() async {
+    try {
+      // Load and decode JSON data
+      final String jsonString = await DefaultAssetBundle.of(context)
+          .loadString('assets/questions.json');
+      final Map<String, dynamic> jsonData = json.decode(jsonString);
+      setState(() {
+        _questions = jsonData['questions']; // Assign parsed questions
+      });
+    } catch (e) {
+      debugPrint("Error loading questions: $e");
+    }
+  }
+
+  void _goToPrevious() {
+    if (_currentIndex > 0) {
+      setState(() {
+        _currentIndex--;
+      });
+    }
+  }
+
+  void _goToNext() {
+    if (_currentIndex < _questions.length - 1) {
+      setState(() {
+        _currentIndex++;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final quizes = [
-      'Q1: Name',
-      'Q2: Age',
-      'Q3: Hometown',
-      'Q4: Hobby',
-      'Q5: Job/Occupation',
-      'Q6: Family',
-      'Q7: Personality',
-      'Q8: Special Skill',
-      'Q9: School',
-      'Q10: Friend',
-    ];
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Colors.white,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text(
-          '2AIR',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-          )
+    if (_questions.isEmpty) {
+      // Show loading indicator while questions are being loaded
+      return const Scaffold(
+        appBar: CustomAppBar(title: '2AIR'),
+        body: Center(
+          child: CircularProgressIndicator(),
         ),
+      );
+    }
+
+    final currentQuestion = _questions[_currentIndex];
+
+    return Scaffold(
+      appBar: const CustomAppBar(title: '2AIR'), // CustomAppBar widget
+      body: BodyContainer(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: Responsive.widthPercentage(context, 3), // padding left
+                top: Responsive.heightPercentage(context, 2),
+              ),
+              child: const BtnEndQuiz(),
+            ),
+            // Progress Bar Placeholder
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: Responsive.heightPercentage(context, 2),
+              ),
+              child: Container(
+                height: Responsive.heightPercentage(context, 2),
+                width: Responsive.widthPercentage(context, 80),
+                decoration: BoxDecoration(
+                  color: AppColors.lightGray,
+                  borderRadius: BorderRadius.circular(8),
+
         actions: [
           IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: const Icon(Icons.perm_identity)),
           IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: const Icon(Icons.settings))
@@ -91,100 +151,31 @@ class FlashCardPage extends StatelessWidget {
                         ])
                   ])),
                 ),
-              )
-            ],
-          ),
-          QuizProgressBar(quizes: quizes),
-          const SizedBox(
-            height: 20
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8)
-            ), child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 254,
-                width: 350,
-                child: Column(
+                child: Stack(
                   children: [
-                    const Row(
-                      children: [
-                        SizedBox(
-                          width: 329,
-                        ),
-                        Icon(
-                            Icons.volume_up_outlined,
-                            size: 21,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const SizedBox(
-                      height: 147,
-                      width: 350,
-                      child: Center(
-                        child: Text(
-                        'The term used to identify a person',
-                        style: TextStyle(
-                          color: Colors.black, 
-                          fontSize: 32,
-                        ),
-                        textAlign: TextAlign.center
+                    Container(
+                      width: Responsive.widthPercentage(context, 40), // 50%
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      ) 
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      // crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton.icon(
-                          onPressed: null, 
-                          label: const Text(
-                            'Previous',
-                            style: TextStyle(
-                              color: Colors.black
-                            ),
-                          ), 
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 115,
-                        ),
-                        TextButton.icon(
-                          onPressed: null, 
-                          iconAlignment: IconAlignment.end,
-                          label: const Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.black
-                            ),
-                          ), 
-                          icon: const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
             ),
-          ),
-        ],
-      )
+            const SizedBox(height: 20),
+            CardWidget(
+              question: currentQuestion['question-text'], // Display question
+              answer: currentQuestion['question-answer'], // Display answer
+              onPrevious: _goToPrevious, // Navigate to previous question
+              onNext: _goToNext, // Navigate to next question
+            ),
+          ],
+        ),
       ),
-      bottomNavigationBar:const BottomNavBar(currentIndex: 0)
+      bottomNavigationBar:
+          const BottomNavBar(currentIndex: 0), // BottomNavBar widget
     );
   }
 }
