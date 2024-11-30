@@ -14,19 +14,30 @@ class MultipleChoicePage extends StatefulWidget {
 
 class _MultipleChoicePageState extends State<MultipleChoicePage> {
   List _questions = [];
+  List _mcQuestions = [];
+  var _currentQuestion = 0;
 
-    Future<void> fetchQuestions() async {
-      final String response = await rootBundle.loadString('questions.json');
-      final data = await json.decode(response);
-      setState(() {
-        _questions = data['questions'];
-        print("...number of questions ${_questions.length}");
-      });
-    }
+  Future<void> fetchQuestions() async {
+    final String response = await rootBundle.loadString('questions.json');
+    final data = await json.decode(response);
+    setState(() {
+      _questions = data['questions'];
+      print("...number of questions ${_questions.length}");
+    });
+  }
   @override
    void initState() {
     super.initState();
     fetchQuestions();
+    // List foo = [];
+    // for (var question in _questions) {
+    //   if (question['type'] == 'multiple') {
+    //     foo.add(question);
+    //   }
+    // }
+    // setState(() {
+    //   _mcQuestions = foo;
+    // });
    }
    
 
@@ -39,10 +50,10 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
         // print("...flash question: ${question}");
       }
     }
-    print("...All of foo: ${foo[0]['question-text']}");
+    // print("...All of foo: ${foo[0]['question-text']}");
     List bar = [];
-    bar.add(foo[0]['question-answer'].toString().split(', '));
-    print("... bar: ${bar}");
+    bar.add(foo[_currentQuestion]['question-answer'].toString().split(', '));
+    print("... bar: ${bar}, current question: ${_currentQuestion}");
     final quizes = [
       'Q1: What is the Korean word for "Hello"?',
       'Q2: What is the Korean word for "Hello"? ',
@@ -166,7 +177,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       width: 350,
                       child: Center(
                         child: Text(
-                        foo[0]['question-text'], //TODO
+                        foo[_currentQuestion]['question-text'], //TODO
                         style: const TextStyle(
                           color: Colors.black, 
                           fontSize: 32,
@@ -183,7 +194,13 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton.icon(
-                          onPressed: null, 
+                          onPressed: () {
+                            if (_currentQuestion > 0) {
+                              setState(() {
+                                _currentQuestion = _currentQuestion - 1;
+                              });
+                            }
+                          }, 
                           label: const Text(
                             'Previous',
                             style: TextStyle(
@@ -199,7 +216,15 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                           width: 115,
                         ),
                         TextButton.icon(
-                          onPressed: null, 
+                          onPressed: () {
+                            print(foo.length);
+                            if (_currentQuestion < foo.length - 1) {
+                              
+                              setState(() {
+                                _currentQuestion = _currentQuestion + 1;
+                              });
+                            }
+                          },  
                           iconAlignment: IconAlignment.end,
                           label: const Text(
                             'Next',
@@ -285,13 +310,13 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(38)
               ),
-              child:  const Column(
+              child:  Column(
               children: [
                 CheckboxListTile(
                   value: false,
                   onChanged: null,
                   title: Text(
-                    'korean text'
+                    bar[0][2]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
                   fillColor: WidgetStatePropertyAll(Colors.white),
@@ -313,13 +338,13 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(38)
               ),
-              child:  const Column(
+              child: Column(
               children: [
                 CheckboxListTile(
                   value: false,
                   onChanged: null,
                   title: Text(
-                    'korean text'
+                    bar[0][3]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
                   fillColor: WidgetStatePropertyAll(Colors.white),
