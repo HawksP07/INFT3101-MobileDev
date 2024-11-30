@@ -1,11 +1,59 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
 import 'package:inft3101_group12_language_app/widgets/progress_bar.dart';
 
-class MultipleChoicePage extends StatelessWidget {
+class MultipleChoicePage extends StatefulWidget {
   const MultipleChoicePage({super.key});
+
+  @override
+  State<MultipleChoicePage> createState() => _MultipleChoicePageState();
+}
+
+class _MultipleChoicePageState extends State<MultipleChoicePage> {
+  List _questions = [];
+  List _mcQuestions = [];
+  var _currentQuestion = 0;
+
+  Future<void> fetchQuestions() async {
+    final String response = await rootBundle.loadString('questions.json');
+    final data = await json.decode(response);
+    setState(() {
+      _questions = data['questions'];
+      print("...number of questions ${_questions.length}");
+    });
+  }
+  @override
+   void initState() {
+    super.initState();
+    fetchQuestions();
+    // List foo = [];
+    // for (var question in _questions) {
+    //   if (question['type'] == 'multiple') {
+    //     foo.add(question);
+    //   }
+    // }
+    // setState(() {
+    //   _mcQuestions = foo;
+    // });
+   }
+   
+
   @override
   Widget build(BuildContext context) {
+    List foo = [];
+    for (var question in _questions) {
+      if (question['type'] == 'multiple') {
+        foo.add(question);
+        // print("...flash question: ${question}");
+      }
+    }
+    // print("...All of foo: ${foo[0]['question-text']}");
+    List bar = [];
+    bar.add(foo[_currentQuestion]['question-answer'].toString().split(', '));
+    print("... bar: ${bar}, current question: ${_currentQuestion}");
     final quizes = [
       'Q1: What is the Korean word for "Hello"?',
       'Q2: What is the Korean word for "Hello"? ',
@@ -124,13 +172,13 @@ class MultipleChoicePage extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 100,
                       width: 350,
                       child: Center(
                         child: Text(
-                        'What is the Korean word for "Hello"?',
-                        style: TextStyle(
+                        foo[_currentQuestion]['question-text'], //TODO
+                        style: const TextStyle(
                           color: Colors.black, 
                           fontSize: 32,
                         ),
@@ -146,7 +194,13 @@ class MultipleChoicePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton.icon(
-                          onPressed: null, 
+                          onPressed: () {
+                            if (_currentQuestion > 0) {
+                              setState(() {
+                                _currentQuestion = _currentQuestion - 1;
+                              });
+                            }
+                          }, 
                           label: const Text(
                             'Previous',
                             style: TextStyle(
@@ -162,7 +216,15 @@ class MultipleChoicePage extends StatelessWidget {
                           width: 115,
                         ),
                         TextButton.icon(
-                          onPressed: null, 
+                          onPressed: () {
+                            print(foo.length);
+                            if (_currentQuestion < foo.length - 1) {
+                              
+                              setState(() {
+                                _currentQuestion = _currentQuestion + 1;
+                              });
+                            }
+                          },  
                           iconAlignment: IconAlignment.end,
                           label: const Text(
                             'Next',
@@ -192,13 +254,13 @@ class MultipleChoicePage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(38)
               ),
-              child:  const Column(
+              child:  Column(
               children: [
                 CheckboxListTile(
                   value: false,
                   onChanged: null,
                   title: Text(
-                    'korean text'
+                    bar[0][0]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
                   fillColor: WidgetStatePropertyAll(Colors.white),
@@ -220,13 +282,13 @@ class MultipleChoicePage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(38)
               ),
-              child:  const Column(
+              child:  Column(
               children: [
                 CheckboxListTile(
                   value: false,
                   onChanged: null,
                   title: Text(
-                    'korean text'
+                    bar[0][1]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
                   fillColor: WidgetStatePropertyAll(Colors.white),
@@ -248,13 +310,13 @@ class MultipleChoicePage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(38)
               ),
-              child:  const Column(
+              child:  Column(
               children: [
                 CheckboxListTile(
                   value: false,
                   onChanged: null,
                   title: Text(
-                    'korean text'
+                    bar[0][2]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
                   fillColor: WidgetStatePropertyAll(Colors.white),
@@ -276,13 +338,13 @@ class MultipleChoicePage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(38)
               ),
-              child:  const Column(
+              child: Column(
               children: [
                 CheckboxListTile(
                   value: false,
                   onChanged: null,
                   title: Text(
-                    'korean text'
+                    bar[0][3]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
                   fillColor: WidgetStatePropertyAll(Colors.white),

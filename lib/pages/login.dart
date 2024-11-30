@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:inft3101_group12_language_app/db/user.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
