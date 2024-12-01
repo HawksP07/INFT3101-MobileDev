@@ -3,7 +3,10 @@ import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
 import 'package:inft3101_group12_language_app/widgets/progress_bar.dart';
 
 class ShortAnswerPage extends StatelessWidget {
+
+  // It doesnt like being a constant when I put a text controller on it
   const ShortAnswerPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final quizes = [
@@ -19,6 +22,7 @@ class ShortAnswerPage extends StatelessWidget {
       'Q10: How do you say "good night" in Korean?',
       'Q11: What is the Korean word for "friend"?',
     ];
+    
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -188,6 +192,7 @@ class ShortAnswerPage extends StatelessWidget {
           SizedBox(
             width: 350.00,
             child: TextField(
+              controller: shortAnswerController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -209,7 +214,8 @@ class ShortAnswerPage extends StatelessWidget {
                   height: 44,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
+                      String shortAnswerText = shortAnswerController.text;
+                      shortAnswerValidation(shortAnswerText);
                     }, 
                     style: ButtonStyle(
                       backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
@@ -219,6 +225,7 @@ class ShortAnswerPage extends StatelessWidget {
                     ), 
                     child: const Text(
                       'ENTER',  
+                      
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

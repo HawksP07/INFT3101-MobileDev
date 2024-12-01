@@ -34,12 +34,12 @@ class FlashCardPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/login');
                 },
-                icon: Icon(Icons.perm_identity)),
+                icon: const Icon(Icons.perm_identity)),
             IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/settings');
                 },
-                icon: Icon(Icons.settings))
+                icon: const Icon(Icons.settings))
           ],
         ),
         body: Container(

@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inft3101_group12_language_app/pages/login.dart';
-import 'package:inft3101_group12_language_app/pages/flashcard.dart';
-import 'package:inft3101_group12_language_app/pages/multiplechoice.dart';
-import 'package:inft3101_group12_language_app/pages/settings.dart';
-import 'package:inft3101_group12_language_app/pages/shortanswer.dart';
-import 'package:inft3101_group12_language_app/pages/signup.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
