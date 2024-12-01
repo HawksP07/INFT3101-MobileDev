@@ -8,7 +8,6 @@ import 'package:inft3101_group12_language_app/widgets/body_container.dart';
 import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
 import 'package:inft3101_group12_language_app/widgets/btn_end_quiz.dart';
 import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
-import 'package:inft3101_group12_language_app/widgets/progress_bar.dart';
 
 class MultipleChoicePage extends StatefulWidget {
   const MultipleChoicePage({super.key});
@@ -94,19 +93,6 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
     List bar = [];
     bar.add(foo[_currentQuestion]['question-answer'].toString().split(', '));
     print("... bar: $bar, current question: $_currentQuestion");
-    final quizes = [
-      'Q1: What is the Korean word for "Hello"?',
-      'Q2: What is the Korean word for "Hello"? ',
-      'Q3: What is the Korean word for "Hello"? ',
-      'Q4: What is the Korean word for "Hello"? ',
-      'Q5: What is the Korean word for "Hello"?',
-      'Q6: What is the Korean word for "Hello"? ',
-      'Q7: What is the Korean word for "Hello"?',
-      'Q8: What is the Korean word for "Hello"?',
-      'Q9: What is the Korean word for "Hello"?',
-      'Q10: What is the Korean word for "Hello"?',
-      'Q11: What is the Korean word for "Hello"?',
-    ];
     return Scaffold(
       appBar: const CustomAppBar(),
       body: BodyContainer(
@@ -220,7 +206,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                             if (_currentQuestion < foo.length - 1) {
                               
                               setState(() {
-                                _currentQuestion = _currentQuestion + 1;
+                                _currentQuestion++;
                               });
                             }
                           },  
