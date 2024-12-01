@@ -1,10 +1,57 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
+import 'package:inft3101_group12_language_app/utils/user_service.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController passwordConfirmController = TextEditingController();
+
+
+    Future<void> signUp(String username, String password, String passwordConfirm) async {
+        List users = [];
+        await UserService.fetchUsers();
+
+          // debug stuff
+          print("Users loaded: $users");
+          print("Password: $password");
+          print("Username: $username");
+
+        bool userFound = false;
+      
+        for (var user in users) {
+          if (user['username'] == username && user['password'] == password) {
+            userFound = true;
+            break;
+          }
+      }
+
+      if (password != passwordConfirm){
+        print("Passwords do not match!");
+      }
+
+      if (userFound){
+        print("User already exists: $username $password");
+        usernameController.clear();
+        passwordController.clear();
+        passwordConfirmController.clear();
+      }
+      else{
+        // remove fetchUsers() later, may become useless in this case (November 30th 2024 @ 11:27pm)
+        await UserService.fetchUsers();
+        await JsonCrud.addUser("users.json", username, password, 0, 0);
+        // Write to JSON
+        // Return to login menu
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -46,7 +93,7 @@ class SignupPage extends StatelessWidget {
           const SizedBox(
             width: 290,
             child: Text (
-              'Email Address',
+              'Username',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -58,10 +105,11 @@ class SignupPage extends StatelessWidget {
           SizedBox(
             width: 312.00,
             child: TextField(
+              controller: usernameController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
-                hintText: 'Email Address',
+                hintText: 'Username',
                 hintStyle: const TextStyle(
                   color: Color.fromARGB(255, 196, 196, 196),
                   fontSize: 18
@@ -93,6 +141,7 @@ class SignupPage extends StatelessWidget {
           SizedBox(
             width: 312.00,
             child: TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -128,6 +177,7 @@ class SignupPage extends StatelessWidget {
           SizedBox(
             width: 312.00,
             child: TextField(
+              controller: passwordConfirmController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -168,7 +218,12 @@ class SignupPage extends StatelessWidget {
             width: 168,
             height: 44,
             child: ElevatedButton(
-              onPressed: null, 
+              onPressed: () {
+                String username = usernameController.text;
+                String password = passwordController.text;
+                String passwordConfirm = passwordConfirmController.text;
+                signUp(username, password, passwordConfirm);
+              },
               style: ButtonStyle(
                 backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
                 shape: WidgetStatePropertyAll(RoundedRectangleBorder(

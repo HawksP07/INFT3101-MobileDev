@@ -1,8 +1,7 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
-import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:inft3101_group12_language_app/utils/user_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,20 +16,9 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Future<void> fetchUsers() async {
-    // List<User> users = [];
-      final String response = await rootBundle.loadString('users.json');
-      final data = await json.decode(response);
-      setState(() {
-        _users = data['users'];
-        print("User Population: ${_users.length}");
-      });
-      
-  }
-
   Future<void> login(String username, String password) async {
   // Wait for the fetchUsers function to complete
-  await fetchUsers();
+  await UserService.fetchUsers();
 
   // debug stuff
   print("Users loaded: $_users");
@@ -48,20 +36,24 @@ class _LoginPageState extends State<LoginPage> {
 
   if (userFound) {
     print("Login successful!");
-    Navigator.pushNamed(context, '/'); // Navigate to the main page
+    Navigator.pushNamed(context, '/');
   } else {
     print("Invalid username or password.");
-    // Optionally show an error dialog or a Snackbar here
   }
 }
+  @override
+  void initState() {
+    super.initState();
+    _loadUsers();
+  }
 
-  
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   fetchUsers();
-  // }
+  Future<void> _loadUsers() async {
+    final users = await UserService.fetchUsers();
+    setState(() {
+      _users = users;
+      print("Users loaded: ${_users.length}");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

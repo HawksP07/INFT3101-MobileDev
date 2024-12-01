@@ -3,8 +3,8 @@
         {
             "username": "testUser",
             "password": "pass123",
-            "mc-score": 0,
-            "sa-score": 0
+            "multiple-choice-score": 0,
+            "short-answer-score": 0
         },
         {
             "username": "testUser2",

@@ -25,6 +25,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
       print("...number of questions ${_questions.length}");
     });
   }
+
   @override
    void initState() {
     super.initState();
@@ -96,8 +97,6 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
           )
         ),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             children: [
