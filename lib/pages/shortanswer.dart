@@ -192,7 +192,6 @@ class ShortAnswerPage extends StatelessWidget {
           SizedBox(
             width: 350.00,
             child: TextField(
-              controller: shortAnswerController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 249, 249, 249),
@@ -214,8 +213,7 @@ class ShortAnswerPage extends StatelessWidget {
                   height: 44,
                   child: ElevatedButton(
                     onPressed: () {
-                      String shortAnswerText = shortAnswerController.text;
-                      shortAnswerValidation(shortAnswerText);
+                      // add here
                     }, 
                     style: ButtonStyle(
                       backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
