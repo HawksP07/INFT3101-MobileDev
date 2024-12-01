@@ -5,7 +5,7 @@ import '../theme/color.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  const CustomAppBar({super.key, required this.title});
+  const CustomAppBar({super.key, this.title = '2AIR'});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       title: Text(
         title,
-        style: AppTypography.mainTitleDark(context),
+        style: AppTypography.logo(context),
       ),
       actions: [
         IconButton(

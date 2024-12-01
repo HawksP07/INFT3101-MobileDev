@@ -19,10 +19,20 @@ class AppTypography {
   }
 
   // Dark mode main title
+  static TextStyle logo(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 4.5,
+      fontWeight: FontWeight.w600,
+      color: AppColors.darkGray,
+    );
+  }
+
+  // Dark mode main title
   static TextStyle mainTitleDark(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 6, // 4.5 rem
+      fontSizeRem: 7,
       fontWeight: FontWeight.bold,
       color: Colors.white,
     );
@@ -32,7 +42,7 @@ class AppTypography {
   static TextStyle mainDescriptionDark(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 3.5, // 2.4 rem
+      fontSizeRem: 3.5,
       fontWeight: FontWeight.w400,
       color: AppColors.lightGray,
     );
@@ -102,7 +112,7 @@ class AppTypography {
   static TextStyle textSmall(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 6, // 4.5 rem
+      fontSizeRem: 6,
       fontWeight: FontWeight.w300,
       color: AppColors.darkGray,
     );
