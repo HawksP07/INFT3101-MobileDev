@@ -64,7 +64,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
     if (_questions.isEmpty) {
       // Show loading indicator while questions are being loaded
       return const Scaffold(
-        appBar: CustomAppBar(title: '2AIR'),
+        appBar: CustomAppBar(),
         body: Center(
           child: CircularProgressIndicator(),
         ),
@@ -74,7 +74,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
     final currentQuestion = _questions[_currentIndex];
 
     return Scaffold(
-      appBar: const CustomAppBar(title: '2AIR'), // CustomAppBar widget
+      appBar: const CustomAppBar(), // CustomAppBar widget
       body: BodyContainer(
         child: Column(
           children: [
