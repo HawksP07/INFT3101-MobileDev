@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: AppTypography.mainDescriptionDark(context),
                   ),
                 ),
-                SizedBox(height: Responsive.heightPercentage(context, 2)), //
+                SizedBox(height: Responsive.heightPercentage(context, 3)),
                 SizedBox(
                   width: 312,
                   height: 77.72,
@@ -157,9 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                  height:
-                                      Responsive.heightPercentage(context, 2)),
+                              const SizedBox(width: 20,),
                               const Icon(
                                 Icons.style_outlined,
                                 color: Colors.white,

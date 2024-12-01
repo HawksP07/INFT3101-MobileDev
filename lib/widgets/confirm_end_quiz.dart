@@ -25,7 +25,7 @@ class ConfirmEndQuizDialog extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               // Navigate to the main screen
-              Navigator.pushReplacementNamed(context, '/'); // Redirect to main
+              Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false); // Redirect to main
             },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
