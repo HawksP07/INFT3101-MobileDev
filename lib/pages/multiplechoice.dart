@@ -2,7 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inft3101_group12_language_app/theme/color.dart';
+import 'package:inft3101_group12_language_app/utils/responsive.dart';
+import 'package:inft3101_group12_language_app/widgets/body_container.dart';
 import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
+import 'package:inft3101_group12_language_app/widgets/btn_end_quiz.dart';
+import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
 import 'package:inft3101_group12_language_app/widgets/progress_bar.dart';
 
 class MultipleChoicePage extends StatefulWidget {
@@ -16,6 +21,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
   List _questions = [];
   final List _mcQuestions = [];
   var _currentQuestion = 0;
+  int _selectedAnswer = -1;
 
   Future<void> fetchQuestions() async {
     final String response = await rootBundle.loadString('questions.json');
@@ -27,21 +33,54 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
   }
 
   @override
-   void initState() {
-    super.initState();
-    fetchQuestions();
-    // List foo = [];
-    // for (var question in _questions) {
-    //   if (question['type'] == 'multiple') {
-    //     foo.add(question);
-    //   }
-    // }
-    // setState(() {
-    //   _mcQuestions = foo;
-    // });
-   }
+  void initState() {
+  super.initState();
+  fetchQuestions();
+  }
    
-
+  bool _checkAnswer(int answerVal) {
+    int answerNum = 0;
+    switch (_currentQuestion) {
+      case 0:
+        answerNum = 0;
+        break;
+       case 1:
+        answerNum = 2;
+        break;
+       case 2:
+        answerNum = 2;
+        break;
+       case 3:
+        answerNum = 1;
+        break;
+       case 4:
+        answerNum = 2;
+        break;
+       case 5:
+        answerNum = 3;
+        break;
+       case 6:
+        answerNum = 0;
+        break;
+       case 7:
+        answerNum = 2;
+        break;
+       case 8:
+        answerNum = 0;
+        break;
+       case 9:
+        answerNum = 0;
+        break;
+      default:
+      return false;
+        break;
+    }
+    if (answerVal == answerNum) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     List foo = [];
@@ -69,84 +108,45 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
       'Q11: What is the Korean word for "Hello"?',
     ];
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Colors.white,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text(
-          '2AIR',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-          )
-        ),
-        actions: [
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: const Icon(Icons.perm_identity)),
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: const Icon(Icons.settings))
-        ],
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/bg-dark.jpg'),
-            fit: BoxFit.cover
-          )
-        ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(28),
-                child:
-                SizedBox(
-              width: 160,
-              height: 44,
-              child: ElevatedButton(
-                  onPressed: null,
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                  child: Stack(fit: StackFit.expand, children: [
-                    Ink(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: const DecorationImage(
-                              image: AssetImage('assets/btn-dark.png'),
-                              fit: BoxFit.cover)),
-                    ),
-                    const Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          SizedBox(width: 20),
-                          Icon(
-                            Icons.drive_file_move_outlined,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          SizedBox(width: 20),
-                          Text('End Quiz',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18))
-                        ])
-                  ])),
+      appBar: const CustomAppBar(),
+      body: BodyContainer(
+        child: Column(
+          children: [
+            Padding (
+            padding: EdgeInsets.only(
+              left: Responsive.widthPercentage(context, 3),
+              top:  Responsive.heightPercentage(context, 2),
+            ),
+            child: const BtnEndQuiz(),
+          ),
+          Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: Responsive.heightPercentage(context, 2),
+              ),
+              child: Container(
+                height: Responsive.heightPercentage(context, 2),
+                width: Responsive.widthPercentage(context, 80),
+                decoration: BoxDecoration(
+                  color: AppColors.lightGray,
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              )
-            ],
-          ),
-          QuizProgressBar(quizes: quizes),
-          const SizedBox(
-            height: 20
-          ),
-          Container(
+                child: Stack(
+                  children: [
+                    Container(
+                      width: Responsive.widthPercentage(context, 40), // 50%
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8)
@@ -179,7 +179,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                         foo[_currentQuestion]['question-text'], //TODO
                         style: const TextStyle(
                           color: Colors.black, 
-                          fontSize: 32,
+                          fontSize: 22,
                         ),
                         textAlign: TextAlign.center
                       ),
@@ -256,13 +256,22 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
               child:  Column(
               children: [
                 CheckboxListTile(
-                  value: false,
-                  onChanged: null,
+                  value: _selectedAnswer == 0 ? true : false,
+
+                  onChanged: (value) => {
+                    if(value != null){
+                      if(value){
+                        setState(() {
+                          _selectedAnswer = 0;
+                          print("...Selected answer: ${_selectedAnswer}");
+                        })
+                      }
+                    }
+                  },
                   title: Text(
                     bar[0][0]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: const WidgetStatePropertyAll(Colors.white),
                   secondary: const Icon(Icons.volume_up_outlined),
                   visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -284,13 +293,22 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
               child:  Column(
               children: [
                 CheckboxListTile(
-                  value: false,
-                  onChanged: null,
+                  value: _selectedAnswer == 1 ? true : false,
+
+                  onChanged: (value) => {
+                    if(value != null){
+                      if(value){
+                        setState(() {
+                          _selectedAnswer = 1;
+                          print("...Selected answer: ${_selectedAnswer}");
+                        })
+                      }
+                    }
+                  },
                   title: Text(
                     bar[0][1]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: const WidgetStatePropertyAll(Colors.white),
                   secondary: const Icon(Icons.volume_up_outlined),
                   visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -312,13 +330,22 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
               child:  Column(
               children: [
                 CheckboxListTile(
-                  value: false,
-                  onChanged: null,
+                  value: _selectedAnswer == 2 ? true : false,
+
+                  onChanged: (value) => {
+                    if(value != null){
+                      if(value){
+                        setState(() {
+                          _selectedAnswer = 2;
+                          print("...Selected answer: ${_selectedAnswer}");
+                        })
+                      }
+                    }
+                  },
                   title: Text(
                     bar[0][2]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: const WidgetStatePropertyAll(Colors.white),
                   secondary: const Icon(Icons.volume_up_outlined),
                   visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -340,13 +367,22 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
               child: Column(
               children: [
                 CheckboxListTile(
-                  value: false,
-                  onChanged: null,
+                  value: _selectedAnswer == 3 ? true : false,
+
+                  onChanged: (value) => {
+                    if(value != null){
+                      if(value){
+                        setState(() {
+                          _selectedAnswer = 3;
+                          print("...Selected answer: ${_selectedAnswer}");
+                        })
+                      }
+                    }
+                  },
                   title: Text(
                     bar[0][3]
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: const WidgetStatePropertyAll(Colors.white),
                   secondary: const Icon(Icons.volume_up_outlined),
                   visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -363,7 +399,20 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                   height: 44,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
+                      bool answerCheck = _checkAnswer(_selectedAnswer);
+                      if (answerCheck) {
+                        if (_currentQuestion < foo.length - 1) {
+                          setState(() {
+                            _currentQuestion = _currentQuestion + 1;
+                            _selectedAnswer = -1;
+                          });
+                        }
+                        else {
+                          print("This is the end bruh.");
+                        }
+                      } else {
+                        print("wrong answer!");
+                      }
                     }, 
                     style: ButtonStyle(
                       backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
@@ -381,8 +430,8 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                     ),
                   ),
                 ),
-        ],
-      )
+          ],
+        ),
       ),
       bottomNavigationBar:const BottomNavBar(currentIndex: 1)
     );
