@@ -18,13 +18,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/login');
+            Navigator.pushNamedAndRemoveUntil(context, '/login', ModalRoute.withName('/'));
           },
           icon: const Icon(Icons.perm_identity, color: AppColors.darkGray),
         ),
         IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/settings');
+            Navigator.pushNamedAndRemoveUntil(context, '/settings', ModalRoute.withName('/'));
           },
           icon: const Icon(Icons.settings, color: AppColors.darkGray),
         ),

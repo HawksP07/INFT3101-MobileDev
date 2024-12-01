@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:inft3101_group12_language_app/utils/user_service.dart';
+import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -58,25 +59,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Colors.white,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text(
-          '2AIR',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-          )
-        ),
-        actions: [
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/login');}, icon: const Icon(Icons.perm_identity)),
-          IconButton(onPressed: () {Navigator.pushNamed(context, '/settings');}, icon: const Icon(Icons.settings))
-        ],
-      ),
+      appBar: const CustomAppBar(),
       body: Container(
         alignment: Alignment.center,
         decoration: const BoxDecoration(
