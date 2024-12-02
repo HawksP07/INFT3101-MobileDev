@@ -1,22 +1,21 @@
 import 'dart:convert'; // For JSON decoding
 import 'package:flutter/material.dart';
 import '../utils/responsive.dart';
-import '../theme/color.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/body_container.dart';
 import '../widgets/btn_end_quiz.dart';
 import '../widgets/bottom_nav.dart';
 import '../widgets/card.dart';
+import '../widgets/progress_bar.dart';
 
 class FlashCardPage extends StatefulWidget {
   const FlashCardPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _FlashCardPageState createState() => _FlashCardPageState();
+  FlashCardPageState createState() => FlashCardPageState();
 }
 
-class _FlashCardPageState extends State<FlashCardPage> {
+class FlashCardPageState extends State<FlashCardPage> {
   List<dynamic> _questions = []; // Holds the parsed flash questions
   int _currentIndex = 0; // Tracks the current question index
 
@@ -85,30 +84,11 @@ class _FlashCardPageState extends State<FlashCardPage> {
               ),
               child: const BtnEndQuiz(),
             ),
-            // Progress Bar Placeholder
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: Responsive.heightPercentage(context, 2),
-              ),
-              child: Container(
-                height: Responsive.heightPercentage(context, 2),
-                width: Responsive.widthPercentage(context, 80),
-                decoration: BoxDecoration(
-                  color: AppColors.lightGray,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Stack(
-                  children: [
-                    Container(
-                      width: Responsive.widthPercentage(context, 40), // 50%
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            // Progress Bar
+            ProgressBarWidget(
+              title: 'Vocabulary Level 1', // Dynamic title
+              current: _currentIndex + 1, // Current question index (1-based)
+              total: _questions.length, // Total number of questions
             ),
             const SizedBox(height: 20),
             CardWidget(

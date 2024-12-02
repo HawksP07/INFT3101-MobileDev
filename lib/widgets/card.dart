@@ -18,10 +18,10 @@ class CardWidget extends StatefulWidget {
   });
 
   @override
-  _CardWidgetState createState() => _CardWidgetState();
+  CardWidgetState createState() => CardWidgetState();
 }
 
-class _CardWidgetState extends State<CardWidget> {
+class CardWidgetState extends State<CardWidget> {
   bool _isFlipped = false; // Tracks whether the card is flipped
 
   void _toggleFlip() {
@@ -43,7 +43,7 @@ class _CardWidgetState extends State<CardWidget> {
           padding: EdgeInsets.all(Responsive.widthPercentage(context, 3)),
           child: SizedBox(
             height: Responsive.heightPercentage(context, 40),
-            width: Responsive.widthPercentage(context, 90),
+            width: Responsive.widthPercentage(context, 80),
             child: Column(
               children: [
                 Row(
