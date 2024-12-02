@@ -43,7 +43,7 @@ class CardWidgetState extends State<CardWidget> {
           padding: EdgeInsets.all(Responsive.widthPercentage(context, 3)),
           child: SizedBox(
             height: Responsive.heightPercentage(context, 40),
-            width: Responsive.widthPercentage(context, 90),
+            width: Responsive.widthPercentage(context, 80),
             child: Column(
               children: [
                 Row(
