@@ -117,4 +117,34 @@ class AppTypography {
       color: AppColors.darkGray,
     );
   }
+
+  // progress title
+  static TextStyle progressTitle(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 3,
+      fontWeight: FontWeight.w400,
+      color: AppColors.darkGray,
+    );
+  }
+
+  // progress total text
+  static TextStyle progressTotal(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 2,
+      fontWeight: FontWeight.w300,
+      color: AppColors.darkGray,
+    );
+  }
+
+  // progress current quiz text
+  static TextStyle progressCurrent(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 2,
+      fontWeight: FontWeight.w300,
+      color: AppColors.primary,
+    );
+  }
 }

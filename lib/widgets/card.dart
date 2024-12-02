@@ -18,10 +18,10 @@ class CardWidget extends StatefulWidget {
   });
 
   @override
-  _CardWidgetState createState() => _CardWidgetState();
+  CardWidgetState createState() => CardWidgetState();
 }
 
-class _CardWidgetState extends State<CardWidget> {
+class CardWidgetState extends State<CardWidget> {
   bool _isFlipped = false; // Tracks whether the card is flipped
 
   void _toggleFlip() {
