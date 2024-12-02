@@ -1,8 +1,11 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: avoid_print, use_build_context_synchronously, unused_import
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:inft3101_group12_language_app/utils/user_service.dart';
+import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
 import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,49 +14,65 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+class UserService {
+
+  static printFormattedJsonResponse(String response) {
+  try {
+    // Decode the JSON string into a Dart object
+    var jsonResponse = json.decode(response);
+    
+    // Encode it back to a string with indentation for pretty printing
+    var prettyJson = const JsonEncoder.withIndent('  ').convert(jsonResponse); // Two spaces for indentation
+    
+    // Print the formatted JSON
+    print("🌐 Raw JSON Response:\n$prettyJson\n");
+  } catch (e) {
+    print("🚫 Error decoding JSON response: $e");
+  }
+}
+
+  static Future<List<dynamic>> fetchUsers() async {
+    final String response = await rootBundle.loadString('lib/data/users.json');
+    printFormattedJsonResponse(response);
+    final Map<String, dynamic> data = json.decode(response);
+    return data['users'] ?? []; 
+  }
+}
+
 class _LoginPageState extends State<LoginPage> {
   List _users = [];
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Future<void> login(String username, String password) async {
-  // Wait for the fetchUsers function to complete
-  await UserService.fetchUsers();
-
-  // debug stuff
-  print("Users loaded: $_users");
-  print("Password: $password");
-  print("Username: $username");
-
-  // Check for username and password match
-  bool userFound = false;
-  for (var user in _users) {
-    if (user['username'] == username && user['password'] == password) {
-      userFound = true;
-      break;
-    }
-  }
-
-  if (userFound) {
-    print("Login successful!");
-    Navigator.pushNamed(context, '/');
-  } else {
-    print("Invalid username or password.");
-  }
-}
-  @override
-  void initState() {
+  @override void initState() {
     super.initState();
-    _loadUsers();
+    _loadUsers(); // Load users when the widget initializes
   }
 
   Future<void> _loadUsers() async {
-    final users = await UserService.fetchUsers();
+    _users = await UserService.fetchUsers(); // Fetch users and set to _users
     setState(() {
-      _users = users;
-      print("Users loaded: ${_users.length}");
+      print("Users loaded: ${_users.length}"); // Print loaded user count
     });
+  }
+
+  Future<void> login(String username, String password) async {
+    // Check for username and password match
+    bool userFound = false;
+    for (var user in _users) {
+      if (user['username'] == username && user['password'] == password) {
+        userFound = true;
+        break;
+      }
+    }
+
+    if (userFound) {
+      print("Login successful!");
+      Navigator.pushNamed(context, '/');
+    } else {
+      print("Invalid username or password.");
+    }
   }
 
   @override
@@ -69,8 +88,6 @@ class _LoginPageState extends State<LoginPage> {
           )
         ),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 171),
           const Text(

@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:inft3101_group12_language_app/pages/login.dart';
 import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
-import 'package:inft3101_group12_language_app/utils/user_service.dart';
 import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
 
 class SignupPage extends StatelessWidget {
@@ -17,39 +17,36 @@ class SignupPage extends StatelessWidget {
 
 
     Future<void> signUp(String username, String password, String passwordConfirm) async {
-        List users = [];
-        await UserService.fetchUsers();
+      // Fetch existing users
+      Map<String, dynamic> userData = await JsonCrud.readJson();
+      List<dynamic> users = userData['users'] ?? [];
 
-          // debug stuff
-          print("Users loaded: $users");
-          print("Password: $password");
-          print("Username: $username");
-
-        bool userFound = false;
-      
-        for (var user in users) {
-          if (user['username'] == username && user['password'] == password) {
-            userFound = true;
-            break;
-          }
+      // Debug output
+      print("📦 Users Loaded: ${users.length} users found");
+      for (var user in users) {
+        print("   - Username: ${user['username']}, Password: ${user['password']}");
       }
+      print("🔑 Password: $password");
+      print("👤 Username: $username");
 
-      if (password != passwordConfirm){
+
+      // Check for user existence
+      bool userFound = users.any((user) => user['username'] == username);
+
+      // Password confirmation check
+      if (password != passwordConfirm) {
         print("Passwords do not match!");
+        return;
       }
 
-      if (userFound){
-        print("User already exists: $username $password");
-        usernameController.clear();
-        passwordController.clear();
-        passwordConfirmController.clear();
-      }
-      else{
-        // remove fetchUsers() later, may become useless in this case (November 30th 2024 @ 11:27pm)
-        await UserService.fetchUsers();
-        await JsonCrud.addUser("users.json", username, password, 0, 0);
-        // Write to JSON
-        // Return to login menu
+      if (userFound) {
+        print("User already exists: $username");
+      } else {
+        // Add the new user and write to JSON
+        await JsonCrud.addUser(username, password, 0, 0);
+        print("User successfully created: $username");
+        Navigator.pushNamed(context, '/login');
+        users = await UserService.fetchUsers();
       }
     }
 
