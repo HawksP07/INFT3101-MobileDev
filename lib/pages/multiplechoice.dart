@@ -18,7 +18,6 @@ class MultipleChoicePage extends StatefulWidget {
 
 class _MultipleChoicePageState extends State<MultipleChoicePage> {
   List _questions = [];
-  final List _mcQuestions = [];
   var _currentQuestion = 0;
   int _selectedAnswer = -1;
 
@@ -27,7 +26,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
     final data = await json.decode(response);
     setState(() {
       _questions = data['questions'];
-      print("...number of questions ${_questions.length}");
+      // print("...number of questions ${_questions.length}");
     });
   }
 
@@ -72,7 +71,6 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
         break;
       default:
       return false;
-        break;
     }
     if (answerVal == answerNum) {
       return true;
@@ -92,7 +90,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
     // print("...All of foo: ${foo[0]['question-text']}");
     List bar = [];
     bar.add(foo[_currentQuestion]['question-answer'].toString().split(', '));
-    print("... bar: $bar, current question: $_currentQuestion");
+    // print("... bar: $bar, current question: $_currentQuestion");
     return Scaffold(
       appBar: const CustomAppBar(),
       body: BodyContainer(
@@ -162,7 +160,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       width: 350,
                       child: Center(
                         child: Text(
-                        foo[_currentQuestion]['question-text'], //TODO
+                        foo[_currentQuestion]['question-text'],
                         style: const TextStyle(
                           color: Colors.black, 
                           fontSize: 22,
@@ -202,7 +200,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                         ),
                         TextButton.icon(
                           onPressed: () {
-                            print(foo.length);
+                            // print(foo.length);
                             if (_currentQuestion < foo.length - 1) {
                               
                               setState(() {
@@ -249,7 +247,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       if(value){
                         setState(() {
                           _selectedAnswer = 0;
-                          print("...Selected answer: ${_selectedAnswer}");
+                          // print("...Selected answer: ${_selectedAnswer}");
                         })
                       }
                     }
@@ -286,7 +284,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       if(value){
                         setState(() {
                           _selectedAnswer = 1;
-                          print("...Selected answer: ${_selectedAnswer}");
+                          // print("...Selected answer: ${_selectedAnswer}");
                         })
                       }
                     }
@@ -323,7 +321,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       if(value){
                         setState(() {
                           _selectedAnswer = 2;
-                          print("...Selected answer: ${_selectedAnswer}");
+                          // print("...Selected answer: ${_selectedAnswer}");
                         })
                       }
                     }
@@ -360,7 +358,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       if(value){
                         setState(() {
                           _selectedAnswer = 3;
-                          print("...Selected answer: ${_selectedAnswer}");
+                          // print("...Selected answer: ${_selectedAnswer}");
                         })
                       }
                     }
@@ -394,9 +392,11 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                           });
                         }
                         else {
+                          // TODO: END OF QUIZ
                           print("This is the end bruh.");
                         }
                       } else {
+                        // TODO: WRONG ANSWER
                         print("wrong answer!");
                       }
                     }, 

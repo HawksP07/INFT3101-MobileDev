@@ -8,7 +8,6 @@ import 'package:inft3101_group12_language_app/widgets/body_container.dart';
 import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
 import 'package:inft3101_group12_language_app/widgets/btn_end_quiz.dart';
 import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
-import 'package:inft3101_group12_language_app/widgets/progress_bar.dart';
 
 class ShortAnswerPage extends StatefulWidget {
 
@@ -29,7 +28,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
     final data = await json.decode(response);
     setState(() {
       _questions = data['questions'];
-      print("...number of questions ${_questions.length}");
+      // print("...number of questions ${_questions.length}");
     });
   }
   @override
@@ -55,7 +54,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
     }
 
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: BodyContainer(
         child: Column(
           children: [
@@ -222,13 +221,13 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
                       String userInput = answerController.text.toLowerCase().replaceAll(' ', '');
                       String correctResponse = foo[_currentQuestion]['question-answer'].toLowerCase().replaceAll(' ', '');
                       if (_checkAnswer(correctResponse, userInput)) {
-                        print('correct answer');
+                        // print('correct answer');
                         setState(() {
                           answerController.text = '';
                           _currentQuestion++;
                         });
                       } else {
-                        print('wrong answer, correct one is: ${correctResponse}');
+                        // print('wrong answer, correct one is: ${correctResponse}');
                       }
                     }, 
                     style: ButtonStyle(

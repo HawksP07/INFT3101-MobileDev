@@ -10,7 +10,7 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("selected: ${currentIndex}");
+    // print("selected: ${currentIndex}");
     return BottomNavigationBar(
         currentIndex: currentIndex ?? 0,
         selectedItemColor: currentIndex == null ? Colors.grey : Colors.blue,
