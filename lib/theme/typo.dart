@@ -4,7 +4,7 @@ import '../utils/responsive.dart';
 import './color.dart';
 
 class AppTypography {
-  // Basic style with custom fontSize and color
+  // Base style method for consistent typography
   static TextStyle _base({
     required BuildContext context,
     required double fontSizeRem,
@@ -18,7 +18,7 @@ class AppTypography {
     );
   }
 
-  // Dark mode main title
+  // Logo style
   static TextStyle logo(BuildContext context) {
     return _base(
       context: context,
@@ -28,7 +28,7 @@ class AppTypography {
     );
   }
 
-  // Dark mode main title
+  // Main title in dark mode
   static TextStyle mainTitleDark(BuildContext context) {
     return _base(
       context: context,
@@ -38,7 +38,7 @@ class AppTypography {
     );
   }
 
-  // Dark mode main description
+  // Description in dark mode
   static TextStyle mainDescriptionDark(BuildContext context) {
     return _base(
       context: context,
@@ -48,17 +48,17 @@ class AppTypography {
     );
   }
 
-  // Dark mode main button text
+  // Button text style for dark mode
   static TextStyle mainButtonTextDark(BuildContext context) {
     return _base(
       context: context,
-      fontSizeRem: 4.3,
+      fontSizeRem: 5,
       fontWeight: FontWeight.w500,
       color: Colors.white,
     );
   }
 
-  // Dark mode main button text large
+  // Large button text style in dark mode
   static TextStyle buttonTextLargeDark(BuildContext context) {
     return _base(
       context: context,
@@ -68,7 +68,7 @@ class AppTypography {
     );
   }
 
-  // Dark mode main button text
+  // Standard button text style in dark mode
   static TextStyle buttonTextDark(BuildContext context) {
     return _base(
       context: context,
@@ -78,7 +78,7 @@ class AppTypography {
     );
   }
 
-  // Dark mode copywrite text style
+  // Copywrite text style for dark mode
   static TextStyle copywriteDark(BuildContext context) {
     return _base(
       context: context,
@@ -88,7 +88,7 @@ class AppTypography {
     );
   }
 
-  // quiz text large
+  // Quiz text large
   static TextStyle quizTextLarge(BuildContext context) {
     return _base(
       context: context,
@@ -98,7 +98,7 @@ class AppTypography {
     );
   }
 
-  // quiz text medium
+  // Medium-sized quiz text
   static TextStyle textMedium(BuildContext context) {
     return _base(
       context: context,
@@ -108,7 +108,7 @@ class AppTypography {
     );
   }
 
-  // quiz text medium
+  // Medium bold quiz text
   static TextStyle textMediumSemiBold(BuildContext context) {
     return _base(
       context: context,
@@ -118,7 +118,7 @@ class AppTypography {
     );
   }
 
-  // quiz text small
+  // Small quiz text
   static TextStyle textSmall(BuildContext context) {
     return _base(
       context: context,
@@ -128,7 +128,7 @@ class AppTypography {
     );
   }
 
-  // progress title
+  // Progress title text
   static TextStyle progressTitle(BuildContext context) {
     return _base(
       context: context,
@@ -138,7 +138,7 @@ class AppTypography {
     );
   }
 
-  // progress total text
+  // Total progress text
   static TextStyle progressTotal(BuildContext context) {
     return _base(
       context: context,
@@ -148,7 +148,7 @@ class AppTypography {
     );
   }
 
-  // progress current quiz text
+  // Current progress text
   static TextStyle progressCurrent(BuildContext context) {
     return _base(
       context: context,
@@ -158,7 +158,7 @@ class AppTypography {
     );
   }
 
-  // answer modal large
+  // Answer modal large text
   static TextStyle answerModalLarge(BuildContext context) {
     return _base(
       context: context,
@@ -168,7 +168,7 @@ class AppTypography {
     );
   }
 
-  // answer modal small
+  // Answer modal small text
   static TextStyle answerModalSmall(BuildContext context) {
     return _base(
       context: context,
@@ -178,7 +178,7 @@ class AppTypography {
     );
   }
 
-  // Static TextStyles for ThemeData
+  // Static TextStyles for ThemeData integration
   static final TextStyle staticMainTitleDark = GoogleFonts.inter(
     fontSize: 28,
     fontWeight: FontWeight.bold,
@@ -206,12 +206,12 @@ class AppTypography {
   static final TextStyle staticLogo = GoogleFonts.inter(
     fontSize: 20,
     fontWeight: FontWeight.w600,
-    color: AppColors.darkGray,
+    color: Colors.white,
   );
 
-  static final TextStyle staticTextMedium = GoogleFonts.inter(
+  static final TextStyle staticCopywrite = GoogleFonts.inter(
     fontSize: 14,
     fontWeight: FontWeight.w300,
-    color: AppColors.darkGray,
+    color: Colors.white,
   );
 }

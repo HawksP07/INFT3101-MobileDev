@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './theme/typo.dart';
+import './theme/color.dart'; // Add your AppColors for background
 import 'pages/flashcard.dart';
 import 'pages/login.dart';
 import 'pages/settings.dart';
@@ -22,12 +24,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false, // Hide debug banner
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 255, 255, 255),
-        ),
+        scaffoldBackgroundColor:
+            AppColors.darkBackground, // Apply dark background
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: '2AIR'), // Set initial route
+      home: const MyHomePage(title: '3AIR'), // Set initial route
       routes: {
         '/login': (context) => const LoginPage(),
         '/settings': (context) => const SettingsPage(),
@@ -61,55 +62,64 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Stack(
         children: [
+          // Background Container covering the whole screen
           Container(
+            width: double.infinity, // Full width
+            height: double.infinity, // Full height
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/bg-dark.jpg'),
-                fit: BoxFit.cover,
+                image: AssetImage('assets/bg-dark.jpg'), // Background image
+                fit: BoxFit.cover, // Cover the entire container
               ),
             ),
-            child: Column(
-              children: [
-                SizedBox(height: Responsive.heightPercentage(context, 15)),
-                Text(
-                  'KOREAN QUIZ',
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-                SizedBox(height: Responsive.heightPercentage(context, 2)),
-                SizedBox(
-                  width: Responsive.widthPercentage(context, 90),
-                  child: Text(
-                    'Dive Into Building Your Korean with interactive quizzes',
+          ),
+          SafeArea(
+            child: Center(
+              // Center all the content horizontally and vertically
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // Minimize space usage
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'KOREAN QUIZ',
+                    style: AppTypography.mainTitleDark(context),
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                ),
-                SizedBox(height: Responsive.heightPercentage(context, 3)),
-                MainButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/flashcard');
-                  },
-                  text: 'Vocabulary Card',
-                  icon: Icons.style_outlined,
-                ),
-                SizedBox(height: Responsive.heightPercentage(context, 3)),
-                MainButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/multiplechoice');
-                  },
-                  text: 'Multiple Choice',
-                  icon: Icons.library_add_check_outlined,
-                ),
-                SizedBox(height: Responsive.heightPercentage(context, 3)),
-                MainButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/shortanswer');
-                  },
-                  text: 'Short Answer',
-                  icon: Icons.textsms_outlined,
-                ),
-                const Spacer(),
-              ],
+                  SizedBox(height: Responsive.heightPercentage(context, 2)),
+                  SizedBox(
+                    width: Responsive.widthPercentage(context, 90),
+                    child: Text(
+                      'Dive Into Building Your Korean with interactive quizzes',
+                      textAlign: TextAlign.center,
+                      style: AppTypography.mainDescriptionDark(context),
+                    ),
+                  ),
+                  SizedBox(height: Responsive.heightPercentage(context, 3)),
+                  MainButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/flashcard');
+                    },
+                    text: 'Vocabulary Card',
+                    icon: Icons.style_outlined,
+                  ),
+                  SizedBox(height: Responsive.heightPercentage(context, 3)),
+                  MainButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/multiplechoice');
+                    },
+                    text: 'Multiple Choice',
+                    icon: Icons.library_add_check_outlined,
+                  ),
+                  SizedBox(height: Responsive.heightPercentage(context, 3)),
+                  MainButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/shortanswer');
+                    },
+                    text: 'Short Answer',
+                    icon: Icons.textsms_outlined,
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -117,16 +127,18 @@ class _MyHomePageState extends State<MyHomePage> {
             left: 0,
             right: 0,
             child: Column(
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Center align footer text
               children: [
                 Text(
                   'INFT 3101 Mobile Development',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: AppTypography.staticCopywrite,
                 ),
                 Text(
                   '\u00a9 2024 2AIR',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: AppTypography.staticCopywrite,
                 ),
               ],
             ),
