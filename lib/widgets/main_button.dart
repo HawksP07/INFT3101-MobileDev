@@ -25,19 +25,18 @@ class MainButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Ink(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onPressed,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            image: DecorationImage(
+              image: AssetImage(imagePath),
+              fit: BoxFit.cover,
             ),
           ),
-          Row(
+          child: Row(
             children: [
               const SizedBox(width: 20),
               Icon(
@@ -46,13 +45,16 @@ class MainButton extends StatelessWidget {
                 size: 44,
               ),
               const SizedBox(width: 20),
-              Text(
-                text,
-                style: AppTypography.mainButtonTextDark(context),
+              Flexible(
+                child: Text(
+                  text,
+                  style: AppTypography.mainButtonTextDark(context),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
