@@ -10,6 +10,7 @@ import 'package:inft3101_group12_language_app/widgets/body_container.dart';
 import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
 import 'package:inft3101_group12_language_app/widgets/btn_end_quiz.dart';
 import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
+import 'package:inft3101_group12_language_app/widgets/progress_bar.dart';
 
 class MultipleChoicePage extends StatefulWidget {
   const MultipleChoicePage({super.key});
@@ -105,30 +106,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
             ),
             child: const BtnEndQuiz(),
           ),
-          Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: Responsive.heightPercentage(context, 2),
-              ),
-              child: Container(
-                height: Responsive.heightPercentage(context, 2),
-                width: Responsive.widthPercentage(context, 80),
-                decoration: BoxDecoration(
-                  color: AppColors.lightGray,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Stack(
-                  children: [
-                    Container(
-                      width: Responsive.widthPercentage(context, 40), // 50%
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          ProgressBarWidget(title: 'Multilpe Choice Quiz', current: (_currentQuestion + 1), total: foo.length),
             const SizedBox(
               height: 20,
             ),
