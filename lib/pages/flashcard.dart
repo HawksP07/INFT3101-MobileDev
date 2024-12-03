@@ -1,4 +1,3 @@
-import 'dart:convert'; // For JSON decoding
 import 'package:flutter/material.dart';
 import '../utils/responsive.dart';
 import '../widgets/custom_app_bar.dart';
@@ -7,6 +6,7 @@ import '../widgets/btn_end_quiz.dart';
 import '../widgets/bottom_nav.dart';
 import '../widgets/card.dart';
 import '../widgets/progress_bar.dart';
+import '../utils/quiz_controller.dart';
 
 class FlashCardPage extends StatefulWidget {
   const FlashCardPage({super.key});
@@ -16,52 +16,23 @@ class FlashCardPage extends StatefulWidget {
 }
 
 class FlashCardPageState extends State<FlashCardPage> {
-  List<dynamic> _questions = []; // Holds the parsed flash questions
-  int _currentIndex = 0; // Tracks the current question index
+  final QuizController _quizController = QuizController();
 
   @override
   void initState() {
     super.initState();
-    _loadQuestions(); // Load questions on initialization
+    _loadQuestions();
   }
 
   Future<void> _loadQuestions() async {
-    try {
-      // Load and decode JSON data
-      final String jsonString = await DefaultAssetBundle.of(context)
-          .loadString('assets/questions.json');
-      final Map<String, dynamic> jsonData = json.decode(jsonString);
-      setState(() {
-        _questions = jsonData['questions']
-            .where(
-                (question) => question['type'] == 'flash') // Filter flash type
-            .toList();
-      });
-    } catch (e) {
-      debugPrint("Error loading questions: $e");
-    }
-  }
-
-  void _goToPrevious() {
-    if (_currentIndex > 0) {
-      setState(() {
-        _currentIndex--;
-      });
-    }
-  }
-
-  void _goToNext() {
-    if (_currentIndex < _questions.length - 1) {
-      setState(() {
-        _currentIndex++;
-      });
-    }
+    await _quizController.loadQuestions('assets/questions.json', 'flash');
+    setState(() {}); // State update
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_questions.isEmpty) {
-      // Show loading indicator while questions are being loaded
+    if (_quizController.questions.isEmpty) {
+      // Loading
       return const Scaffold(
         appBar: CustomAppBar(),
         body: Center(
@@ -70,7 +41,8 @@ class FlashCardPageState extends State<FlashCardPage> {
       );
     }
 
-    final currentQuestion = _questions[_currentIndex];
+    final currentQuestion =
+        _quizController.questions[_quizController.currentIndex];
 
     return Scaffold(
       appBar: const CustomAppBar(), // CustomAppBar widget
@@ -87,18 +59,30 @@ class FlashCardPageState extends State<FlashCardPage> {
             // Progress Bar
             ProgressBarWidget(
               title: 'Vocabulary Level 1', // Dynamic title
-              current: _currentIndex + 1, // Current question index (1-based)
-              total: _questions.length, // Total number of questions
+              current: _quizController.currentIndex +
+                  1, // Current question index (1-based)
+              total:
+                  _quizController.questions.length, // Total number of questions
             ),
             const SizedBox(height: 20),
             CardWidget(
               question: currentQuestion['question-text'], // Display question
               answer: currentQuestion['question-answer'], // Display answer
-              onPrevious:
-                  _currentIndex == 0 ? null : _goToPrevious, // Disable Previous
-              onNext: _currentIndex == _questions.length - 1
+              onPrevious: _quizController.currentIndex == 0
                   ? null
-                  : _goToNext, // Disable Next
+                  : () {
+                      setState(() {
+                        _quizController.goToPrevious();
+                      });
+                    },
+              onNext: _quizController.currentIndex ==
+                      _quizController.questions.length - 1
+                  ? null
+                  : () {
+                      setState(() {
+                        _quizController.goToNext();
+                      });
+                    },
             ),
           ],
         ),
