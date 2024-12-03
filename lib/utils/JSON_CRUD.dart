@@ -10,8 +10,8 @@ class JsonCrud {
 
   // Get the correct directory for file storage on Windows
   static Future<String> _getFilePath() async {
-    const directory = "lib/data"; 
-    return path.join(Directory.current.path, directory, _fileName); 
+    const directory = "lib/data";
+    return path.join(Directory.current.path, directory, _fileName);
   }
 
   // Read user data
@@ -45,7 +45,8 @@ class JsonCrud {
   }
 
   // Add a user
-  static Future<void> addUser(String username, String password, int mcScore, int saScore) async {
+  static Future<void> addUser(
+      String username, String password, int mcScore, int saScore) async {
     try {
       Map<String, dynamic> jsonData = await readJson();
       List<dynamic> users = jsonData['users'] ?? [];
@@ -65,6 +66,30 @@ class JsonCrud {
       users = await UserService.fetchUsers();
     } catch (e) {
       print("Error adding user: $e");
+    }
+  }
+
+  static Future<void> incrementShortAnswerScore(String username) async {
+    try {
+      // Read the JSON data
+      Map<String, dynamic> jsonData = await readJson();
+      List<dynamic> users = jsonData['users'] ?? [];
+
+      // Find the user and update the score
+      for (var user in users) {
+        if (user['username'] == username) {
+          user['short_answer_score'] = (user['short_answer_score'] ?? 0) + 10;
+          break; // Stop once the user is found
+        }
+      }
+
+      // Write the updated data back to the file
+      jsonData['users'] = users;
+      await writeJson(jsonData);
+
+      print("Incremented short_answer_score for user: $username");
+    } catch (e) {
+      print("Error incrementing score: $e");
     }
   }
 }

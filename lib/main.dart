@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './theme/typo.dart';
-import './theme/color.dart'; // Add your AppColors for background
+import 'package:provider/provider.dart';
 import 'pages/flashcard.dart';
 import 'pages/login.dart';
 import 'pages/settings.dart';
@@ -10,9 +9,17 @@ import './utils/responsive.dart';
 import './widgets/main_button.dart';
 import 'pages/multiplechoice.dart';
 import 'pages/shortanswer.dart';
+import './utils/UserState.dart';
+import './theme/typo.dart';
+import 'theme/color.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserState(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

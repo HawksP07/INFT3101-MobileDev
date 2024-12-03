@@ -4,8 +4,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
+import 'package:inft3101_group12_language_app/utils/globals.dart';
 import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
+import '../utils/UserState.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -59,11 +62,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> login(String username, String password) async {
-    // Check for username and password match
     bool userFound = false;
     for (var user in _users) {
       if (user['username'] == username && user['password'] == password) {
         userFound = true;
+        // Set the username in UserState
+        Provider.of<UserState>(context, listen: false).login(username);
         break;
       }
     }
