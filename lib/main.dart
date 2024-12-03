@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'pages/flashcard.dart';
 import 'pages/login.dart';
 import 'pages/settings.dart';
@@ -8,9 +9,15 @@ import './utils/responsive.dart';
 import './widgets/main_button.dart';
 import 'pages/multiplechoice.dart';
 import 'pages/shortanswer.dart';
+import './utils/UserState.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserState(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
