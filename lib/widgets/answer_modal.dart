@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import '../theme/color.dart';
+import '../theme/typo.dart';
+
 class FeedbackModal extends StatelessWidget {
   final bool isCorrect;
   final VoidCallback onClose;
@@ -17,7 +21,7 @@ class FeedbackModal extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: isCorrect ? Colors.green : Colors.red,
+          color: isCorrect ? AppColors.green : AppColors.red,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -25,18 +29,16 @@ class FeedbackModal extends StatelessWidget {
           children: [
             Text(
               isCorrect ? 'Correct' : 'Incorrect',
-              style: const TextStyle(
+              style: AppTypography.quizTextLarge(context).copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 24,
               ),
             ),
             const SizedBox(height: 10),
             Text(
               isCorrect ? 'Great Job!' : 'Try again!',
-              style: const TextStyle(
+              style: AppTypography.textMedium(context).copyWith(
                 color: Colors.white,
-                fontSize: 16,
               ),
             ),
             const SizedBox(height: 20),
