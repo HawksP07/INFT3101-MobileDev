@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../theme/color.dart';
 import '../utils/responsive.dart';
+import '../widgets/answer_modal.dart';
 import '../widgets/body_container.dart';
 import '../widgets/bottom_nav.dart';
 import '../widgets/btn_end_quiz.dart';
@@ -8,6 +8,8 @@ import '../widgets/custom_app_bar.dart';
 import '../widgets/progress_bar.dart';
 import '../widgets/card.dart';
 import '../utils/quiz_controller.dart';
+import '../widgets/text_field.dart';
+import '../widgets/button.dart';
 
 class ShortAnswerPage extends StatefulWidget {
   const ShortAnswerPage({super.key});
@@ -28,11 +30,30 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
 
   Future<void> _loadQuestions() async {
     await _quizController.loadQuestions('assets/questions.json', 'short');
-    setState(() {}); // 상태 업데이트
+    setState(() {}); // update
   }
 
   bool _checkAnswer(String correctAnswer, String userInput) {
     return correctAnswer.trim().toLowerCase() == userInput.trim().toLowerCase();
+  }
+
+  void _showAnswerModal(bool isCorrect) {
+    showDialog(
+      context: context,
+      builder: (context) => AnswerModal(
+        isCorrect: isCorrect,
+        onClose: () {
+          Navigator.of(context).pop();
+          if (isCorrect &&
+              _quizController.currentIndex <
+                  _quizController.questions.length - 1) {
+            setState(() {
+              _quizController.goToNext();
+            });
+          }
+        },
+      ),
+    );
   }
 
   @override
@@ -90,59 +111,30 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
             ),
             const SizedBox(height: 20),
             // Answer Text Field
-            TextField(
+            AnswerTextField(
               controller: answerController,
-              hintText: 'Type your answer here', // hintText
+              hintText: 'Type your answer here',
+              onSubmitted: (String userInput) {},
             ),
             const SizedBox(height: 20),
             // Submit Button
-            SizedBox(
-              width: Responsive.widthPercentage(context, 80),
-              height: 44,
-              child: ElevatedButton(
-                onPressed: () {
-                  String userInput = answerController.text.trim();
-                  String correctAnswer =
-                      currentQuestion['question-answer'].trim();
-                  if (_checkAnswer(correctAnswer, userInput)) {
-                    // Correct
-                    setState(() {
-                      answerController.clear();
-                      if (_quizController.currentIndex <
-                          _quizController.questions.length - 1) {
-                        _quizController.goToNext();
-                      }
-                    });
-                  } else {
-                    // wrong answer
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Wrong answer! The correct answer is: $correctAnswer',
-                        ),
-                      ),
-                    );
-                  }
-                },
-                style: ButtonStyle(
-                  backgroundColor: const WidgetStatePropertyAll(
-                    AppColors.primary,
-                  ),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-                child: const Text(
-                  'SUBMIT',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
+            CustomButton(
+              onPressed: () {
+                String userInput = answerController.text.trim();
+                String correctAnswer =
+                    currentQuestion['question-answer'].trim();
+                if (_checkAnswer(correctAnswer, userInput)) {
+                  // Correct
+                  _showAnswerModal(true);
+                  setState(() {
+                    answerController.clear();
+                  });
+                } else {
+                  // Wrong answer
+                  _showAnswerModal(false);
+                }
+              },
+              text: 'SUBMIT',
             ),
           ],
         ),

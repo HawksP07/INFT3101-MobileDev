@@ -58,6 +58,16 @@ class AppTypography {
     );
   }
 
+  // Dark mode main button text large
+  static TextStyle buttonTextLargeDark(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 3,
+      fontWeight: FontWeight.w400,
+      color: Colors.white,
+    );
+  }
+
   // Dark mode main button text
   static TextStyle buttonTextDark(BuildContext context) {
     return _base(
@@ -145,6 +155,26 @@ class AppTypography {
       fontSizeRem: 2,
       fontWeight: FontWeight.w300,
       color: AppColors.primary,
+    );
+  }
+
+  // answer modal large
+  static TextStyle answerModalLarge(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 8,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+    );
+  }
+
+  // answer modal small
+  static TextStyle answerModalSmall(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 4,
+      fontWeight: FontWeight.w400,
+      color: Colors.white,
     );
   }
 }

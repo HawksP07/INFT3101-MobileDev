@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/color.dart';
 
 class AnswerTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -18,15 +19,21 @@ class AnswerTextField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           filled: true,
-          fillColor: const Color.fromARGB(255, 249, 249, 249),
-          hintText: hintText, //
+          fillColor: Colors.white, // Background color set to white
+          hintText: hintText, // hintText correctly defined here
           hintStyle: const TextStyle(
-            color: Color.fromARGB(255, 196, 196, 196),
+            color: AppColors.gray,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
+        style: const TextStyle(
+          color: Colors.black, // Text color set to black
+        ),
+        onTap: () {
+          controller.clear();
+        },
       ),
     );
   }

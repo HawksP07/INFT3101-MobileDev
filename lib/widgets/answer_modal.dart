@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../theme/color.dart';
 import '../theme/typo.dart';
 
-class FeedbackModal extends StatelessWidget {
+class AnswerModal extends StatelessWidget {
   final bool isCorrect;
   final VoidCallback onClose;
 
-  const FeedbackModal({
+  const AnswerModal({
     super.key,
     required this.isCorrect,
     required this.onClose,
@@ -27,27 +27,21 @@ class FeedbackModal extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              isCorrect ? 'Correct' : 'Incorrect',
-              style: AppTypography.quizTextLarge(context).copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              isCorrect ? 'Great Job!' : 'Try again!',
-              style: AppTypography.textMedium(context).copyWith(
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 20),
             Align(
               alignment: Alignment.topRight,
               child: IconButton(
                 icon: const Icon(Icons.close, color: Colors.white),
                 onPressed: onClose,
               ),
+            ),
+            Text(
+              isCorrect ? 'Correct' : 'Incorrect',
+              style: AppTypography.answerModalLarge(context),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              isCorrect ? 'Great Job!' : 'Try Again!',
+              style: AppTypography.answerModalSmall(context),
             ),
           ],
         ),
