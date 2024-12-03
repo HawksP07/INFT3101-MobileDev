@@ -177,4 +177,41 @@ class AppTypography {
       color: Colors.white,
     );
   }
+
+  // Static TextStyles for ThemeData
+  static final TextStyle staticMainTitleDark = GoogleFonts.inter(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
+  static final TextStyle staticMainDescriptionDark = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.lightGray,
+  );
+
+  static final TextStyle staticButtonTextDark = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
+
+  static final TextStyle staticButtonTextLargeDark = GoogleFonts.inter(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
+
+  static final TextStyle staticLogo = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: AppColors.darkGray,
+  );
+
+  static final TextStyle staticTextMedium = GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w300,
+    color: AppColors.darkGray,
+  );
 }
