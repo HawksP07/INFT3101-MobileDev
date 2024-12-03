@@ -1,48 +1,70 @@
-// ignore_for_file: avoid_print non_constant_identifier_names
+// ignore_for_file: file_names, avoid_print
 
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io'; // For file operations
+import 'package:inft3101_group12_language_app/pages/login.dart';
+import 'package:path/path.dart' as path; // For handling paths
 
 class JsonCrud {
+  static const String _fileName = 'users.json';
 
-  static Future<File> getFile(String fileName) async {
-  final directory = Directory('lib/data');
-  if (!(await directory.exists())) { await directory.create(recursive: true); }
-  return File('${directory.path}/$fileName');
-}
+  // Get the correct directory for file storage on Windows
+  static Future<String> _getFilePath() async {
+    const directory = "lib/data"; 
+    return path.join(Directory.current.path, directory, _fileName); 
+  }
 
-  static Future<Map<String, dynamic>> readJson(String fileName, String jsonTitle) async {
+  // Read user data
+  static Future<Map<String, dynamic>> readJson() async {
     try {
-      final file = await getFile(fileName);
-      String contents = await file.readAsString();
-      return jsonDecode(contents);
+      final path = await _getFilePath();
+      final file = File(path);
+      if (!(await file.exists())) {
+        return {"users": []}; // Return empty if file does not exist
+      }
+      String jsonString = await file.readAsString();
+      return jsonDecode(jsonString);
     } catch (e) {
-      print("Error reading file: $e");
-      return {jsonTitle: []}; 
+      print("Error reading JSON: $e");
+      return {"users": []}; // Return empty on error
     }
   }
 
-  static Future<void> writeJson(String fileName, Map<String, dynamic> jsonData) async {
-    final file = await getFile(fileName);
-    await file.writeAsString(jsonEncode(jsonData), flush: true);
-    print("File written to ${file.path}");
+  // Write user data
+  static Future<void> writeJson(Map<String, dynamic> jsonData) async {
+    try {
+      // For desktop platforms, write to file
+      final path = await _getFilePath();
+      final file = File(path);
+      await file.create(recursive: true); // Ensure directory exists
+      await file.writeAsString(jsonEncode(jsonData), flush: true);
+      print("Data written to $path");
+    } catch (e) {
+      print("Error writing JSON: $e");
+    }
   }
 
-  static Future<void> addUser(String fileName, String username, String password, int mcScore, int saScore) async {
+  // Add a user
+  static Future<void> addUser(String username, String password, int mcScore, int saScore) async {
+    try {
+      Map<String, dynamic> jsonData = await readJson();
+      List<dynamic> users = jsonData['users'] ?? [];
 
-        Map<String, dynamic> jsonData = await readJson(fileName, "users");
-        List<dynamic> users = jsonData['users'] ?? [];
+      // Add the new user
+      users.add({
+        "username": username,
+        "password": password,
+        "multiple_choice_score": mcScore,
+        "short_answer_score": saScore,
+      });
 
-        users.add({
-          "username": username,
-          "password": password,
-          "multiple-choice-score": mcScore,
-          "short-answer-score": saScore,
-        });
+      jsonData['users'] = users;
+      await writeJson(jsonData);
 
-        jsonData['users'] = users;
-        await writeJson(fileName, jsonData);
-
-        print("User Created Sucessfully: $username - $password");
+      print("User Created Successfully: $username");
+      users = await UserService.fetchUsers();
+    } catch (e) {
+      print("Error adding user: $e");
     }
+  }
 }
