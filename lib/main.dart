@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             AppColors.darkBackground, // Apply dark background
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: '3AIR'), // Set initial route
+      home: const MyHomePage(title: '2AIR'), // Set initial route
       routes: {
         '/login': (context) => const LoginPage(),
         '/settings': (context) => const SettingsPage(),

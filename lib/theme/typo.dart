@@ -214,4 +214,6 @@ class AppTypography {
     fontWeight: FontWeight.w300,
     color: Colors.white,
   );
+
+  static var staticTextMedium;
 }

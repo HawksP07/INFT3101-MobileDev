@@ -8,7 +8,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppBar({
     super.key,
-    this.title = '3AIR', // Default title
+    this.title = '2AIR', // Default title
     required this.isLoggedIn, // Require login status to customize AppBar actions
   });
 
