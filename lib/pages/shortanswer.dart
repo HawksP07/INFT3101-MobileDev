@@ -60,7 +60,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
   Widget build(BuildContext context) {
     if (_quizController.questions.isEmpty) {
       return const Scaffold(
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(isLoggedIn: false),
         body: Center(
           child: CircularProgressIndicator(),
         ),
@@ -71,7 +71,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
         _quizController.questions[_quizController.currentIndex];
 
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(isLoggedIn: false),
       body: BodyContainer(
         child: Column(
           children: [

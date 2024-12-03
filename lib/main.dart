@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Title
                 Text(
                   'KOREAN QUIZ',
-                  style: Theme.of(context).textTheme.displayLarge, // Use theme
+                  style: Theme.of(context).textTheme.displayLarge, // theme
                 ),
                 SizedBox(height: Responsive.heightPercentage(context, 2)),
                 // Subtitle
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'Dive Into Building Your Korean with interactive quizzes',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyLarge, // Use theme
+                    style: Theme.of(context).textTheme.bodyLarge, // theme
                   ),
                 ),
                 SizedBox(height: Responsive.heightPercentage(context, 3)),
@@ -97,12 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text(
                   'INFT 3101 Mobile Development',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge, // Use theme
+                  style: Theme.of(context).textTheme.bodyLarge, // theme
                 ),
                 Text(
                   '\u00a9 2024 3AIR',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge, // Use theme
+                  style: Theme.of(context).textTheme.bodyLarge, // theme
                 ),
               ],
             ),
