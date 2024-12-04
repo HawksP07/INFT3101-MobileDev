@@ -64,6 +64,8 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = Provider.of<UserState>(context).isLoggedIn;
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -91,7 +93,9 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   Text(
                     'KOREAN QUIZ',
-                    style: AppTypography.mainTitleDark(context),
+                    style: AppTypography.mainTitleDark(context).copyWith(
+                      fontSize: Responsive.widthPercentage(context, 8),
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: Responsive.heightPercentage(context, 2)),
@@ -100,33 +104,72 @@ class MyHomePage extends StatelessWidget {
                     child: Text(
                       'Dive Into Building Your Korean with interactive quizzes',
                       textAlign: TextAlign.center,
-                      style: AppTypography.mainDescriptionDark(context),
+                      style:
+                          AppTypography.mainDescriptionDark(context).copyWith(
+                        fontSize: Responsive.widthPercentage(context, 4),
+                      ),
                     ),
                   ),
                   SizedBox(height: Responsive.heightPercentage(context, 3)),
-                  MainButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/flashcard');
-                    },
-                    text: 'Vocabulary Card',
-                    icon: Icons.style_outlined,
-                  ),
-                  SizedBox(height: Responsive.heightPercentage(context, 3)),
-                  MainButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/multiplechoice');
-                    },
-                    text: 'Multiple Choice',
-                    icon: Icons.library_add_check_outlined,
-                  ),
-                  SizedBox(height: Responsive.heightPercentage(context, 3)),
-                  MainButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/shortanswer');
-                    },
-                    text: 'Short Answer',
-                    icon: Icons.textsms_outlined,
-                  ),
+                  // Buttons Row for Landscape Mode
+                  if (isLandscape)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildSquareButton(
+                          context,
+                          text: 'Vocabulary Card',
+                          icon: Icons.style_outlined,
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/flashcard'),
+                        ),
+                        _buildSquareButton(
+                          context,
+                          text: 'Multiple Choice',
+                          icon: Icons.library_add_check_outlined,
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/multiplechoice'),
+                        ),
+                        _buildSquareButton(
+                          context,
+                          text: 'Short Answer',
+                          icon: Icons.textsms_outlined,
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/shortanswer'),
+                        ),
+                      ],
+                    )
+                  else
+                    // Buttons Column for Portrait Mode
+                    Column(
+                      children: [
+                        MainButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/flashcard');
+                          },
+                          text: 'Vocabulary Card',
+                          icon: Icons.style_outlined,
+                        ),
+                        SizedBox(
+                            height: Responsive.heightPercentage(context, 1)),
+                        MainButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/multiplechoice');
+                          },
+                          text: 'Multiple Choice',
+                          icon: Icons.library_add_check_outlined,
+                        ),
+                        SizedBox(
+                            height: Responsive.heightPercentage(context, 1)),
+                        MainButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/shortanswer');
+                          },
+                          text: 'Short Answer',
+                          icon: Icons.textsms_outlined,
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),
@@ -145,11 +188,42 @@ class MyHomePage extends StatelessWidget {
                   style: AppTypography.staticCopywrite,
                 ),
                 Text(
-                  '\u00a9 2024 2AIR',
+                  '© 2024 2AIR',
                   textAlign: TextAlign.center,
                   style: AppTypography.staticCopywrite,
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSquareButton(BuildContext context,
+      {required String text,
+      required IconData icon,
+      required VoidCallback onPressed}) {
+    final size = Responsive.widthPercentage(
+        context, 25); // Square size relative to width
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(size, size),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: size * 0.4), // Icon size relative to button size
+          SizedBox(height: size * 0.1),
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            style: AppTypography.mainDescriptionDark(context).copyWith(
+              fontSize: size * 0.12,
             ),
           ),
         ],

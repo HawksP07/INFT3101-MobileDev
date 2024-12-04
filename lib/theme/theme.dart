@@ -6,7 +6,7 @@ import '../theme/typo.dart';
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: AppColors.primary,
-  scaffoldBackgroundColor: AppColors.darkBackground,
+  scaffoldBackgroundColor: Colors.transparent, // Transparent to show the image
   textTheme: TextTheme(
     displayLarge: AppTypography.staticMainTitleDark,
     bodyLarge: AppTypography.staticMainDescriptionDark,
@@ -76,7 +76,7 @@ ThemeData darkTheme = ThemeData(
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: AppColors.primary,
-  scaffoldBackgroundColor: AppColors.lightGray,
+  scaffoldBackgroundColor: Colors.transparent, // Transparent to show the image
   textTheme: TextTheme(
     displayLarge: AppTypography.staticLogo,
     bodyLarge: AppTypography.staticTextMedium,
@@ -141,3 +141,26 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
 );
+
+// Wrapper Widget to Add Background Images
+class ThemedBackground extends StatelessWidget {
+  final Widget child;
+  final bool isDarkMode;
+
+  const ThemedBackground(
+      {super.key, required this.child, required this.isDarkMode});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(
+              isDarkMode ? 'assets/bg-dark.jpg' : 'assets/bg-light.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: child,
+    );
+  }
+}

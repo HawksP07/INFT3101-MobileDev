@@ -106,58 +106,58 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             // Color Selection
-            Card(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.color_lens_outlined, size: 30),
-                        const SizedBox(width: 16),
-                        Text(
-                          'Colors',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color:
-                                _isDarkMode ? AppColors.darkGray : Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Wrap(
-                      spacing: 10,
-                      children: _availableColors.map((color) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _selectedColor = color;
-                            });
-                          },
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: color,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: color == _selectedColor
-                                    ? Colors.black
-                                    : Colors.transparent,
-                                width: 2,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Card(
+            //   color: Colors.white,
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(16.0),
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Row(
+            //           children: [
+            //             const Icon(Icons.color_lens_outlined, size: 30),
+            //             const SizedBox(width: 16),
+            //             Text(
+            //               'Colors',
+            //               style: TextStyle(
+            //                 fontSize: 18,
+            //                 color:
+            //                     _isDarkMode ? AppColors.darkGray : Colors.black,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //         const SizedBox(height: 16),
+            //         Wrap(
+            //           spacing: 10,
+            //           children: _availableColors.map((color) {
+            //             return GestureDetector(
+            //               onTap: () {
+            //                 setState(() {
+            //                   _selectedColor = color;
+            //                 });
+            //               },
+            //               child: Container(
+            //                 width: 40,
+            //                 height: 40,
+            //                 decoration: BoxDecoration(
+            //                   color: color,
+            //                   shape: BoxShape.circle,
+            //                   border: Border.all(
+            //                     color: color == _selectedColor
+            //                         ? Colors.black
+            //                         : Colors.transparent,
+            //                     width: 2,
+            //                   ),
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList(),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             // Dark Mode Toggle
             Card(
               color: Colors.white,
