@@ -10,8 +10,8 @@ import './widgets/main_button.dart';
 import 'pages/multiplechoice.dart';
 import 'pages/shortanswer.dart';
 import './utils/UserState.dart';
+import './theme/theme.dart';
 import './theme/typo.dart';
-import 'theme/color.dart';
 
 void main() {
   runApp(
@@ -22,23 +22,32 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isDarkMode = false; // Track the theme mode
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false, // Hide debug banner
-      theme: ThemeData(
-        scaffoldBackgroundColor:
-            AppColors.darkBackground, // Apply dark background
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: '2AIR'), // Set initial route
+      debugShowCheckedModeBanner: false,
+      theme: _isDarkMode ? darkTheme : lightTheme, // Use dynamic theme
+      home: const MyHomePage(title: '2AIR'),
       routes: {
         '/login': (context) => const LoginPage(),
-        '/settings': (context) => const SettingsPage(),
+        '/settings': (context) => SettingsPage(
+              onThemeToggle: (isDark) {
+                setState(() {
+                  _isDarkMode = isDark; // Update theme mode
+                });
+              },
+            ),
         '/signup': (context) => const SignupPage(),
         '/flashcard': (context) => const FlashCardPage(),
         '/multiplechoice': (context) => const MultipleChoicePage(),
@@ -48,23 +57,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Main Home Page
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final bool isLoggedIn = true;
-
-  @override
   Widget build(BuildContext context) {
+    final isLoggedIn = Provider.of<UserState>(context).isLoggedIn;
+
     return Scaffold(
       appBar: CustomAppBar(
-        title: widget.title,
+        title: title,
         isLoggedIn: isLoggedIn,
       ),
       body: Stack(
@@ -82,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SafeArea(
             child: Center(
-              // Center all the content horizontally and vertically
               child: Column(
                 mainAxisSize: MainAxisSize.min, // Minimize space usage
                 crossAxisAlignment: CrossAxisAlignment.center,
