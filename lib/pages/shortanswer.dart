@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../utils/globals.dart';
 import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
 import '../utils/responsive.dart';
 import '../widgets/answer_modal.dart';
@@ -12,6 +11,7 @@ import '../widgets/card.dart';
 import '../utils/quiz_controller.dart';
 import '../widgets/text_field.dart';
 import '../widgets/button.dart';
+import '../utils/sessionControl.dart'; // Import the session control
 
 class ShortAnswerPage extends StatefulWidget {
   const ShortAnswerPage({super.key});
@@ -94,7 +94,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
             // Card Widget
             CardWidget(
               question: currentQuestion['question-text'],
-              answer: 'Answer Hidden', //
+              answer: 'Answer Hidden',
               onPrevious: _quizController.currentIndex == 0
                   ? null
                   : () {
@@ -121,7 +121,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
             const SizedBox(height: 20),
             // Submit Button
             CustomButton(
-              onPressed: () {
+              onPressed: () async {
                 String userInput = answerController.text.trim();
                 String correctAnswer =
                     currentQuestion['question-answer'].trim();
@@ -129,10 +129,13 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
                   // Correct
                   _showAnswerModal(true);
 
-                  //somehow fetch users here
+                  // Fetch logged-in username from session
+                  String? loggedInUsername =
+                      await loadSession(); // Load the session
 
                   if (loggedInUsername != null) {
-                    JsonCrud.incrementShortAnswerScore(loggedInUsername!);
+                    // Increment the user's score
+                    JsonCrud.incrementShortAnswerScore(loggedInUsername);
                   } else {
                     print("No user is logged in.");
                   }
