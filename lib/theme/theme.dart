@@ -1,62 +1,39 @@
 import 'package:flutter/material.dart';
 import '../theme/color.dart';
+import '../theme/typo.dart';
 
-// Theme - dark
+// Dark Theme
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: AppColors.primary,
-  hintColor: AppColors.accent,
   scaffoldBackgroundColor: AppColors.darkBackground,
-  textTheme: const TextTheme(
-    displayLarge: TextStyle(
-      fontSize: 24.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    bodyLarge: TextStyle(
-      fontSize: 16.0,
-      color: Colors.white70,
-    ),
-    labelLarge: TextStyle(
-      fontSize: 18.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
+  textTheme: TextTheme(
+    displayLarge: AppTypography.staticMainTitleDark,
+    bodyLarge: AppTypography.staticMainDescriptionDark,
+    labelLarge: AppTypography.staticButtonTextDark,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.primary,
-      textStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+      textStyle: AppTypography.staticButtonTextDark, // Static text style
     ),
   ),
 );
 
-// Theme - light
+// Light Theme
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: AppColors.primary,
-  hintColor: AppColors.accent,
   scaffoldBackgroundColor: AppColors.lightGray,
-  textTheme: const TextTheme(
-    displayLarge: TextStyle(
-      fontSize: 24.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.black,
-    ),
-    bodyLarge: TextStyle(
-      fontSize: 16.0,
-      color: Colors.black87,
-    ),
-    labelLarge: TextStyle(
-      fontSize: 18.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
+  textTheme: TextTheme(
+    displayLarge: AppTypography.staticLogo,
+    bodyLarge: AppTypography.staticTextMedium,
+    labelLarge: AppTypography.staticButtonTextLargeDark,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.primary,
-      textStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+      textStyle: AppTypography.staticButtonTextDark, // Static text style
     ),
   ),
 );

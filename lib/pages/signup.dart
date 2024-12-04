@@ -60,7 +60,7 @@ class SignupPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(isLoggedIn: false),
       body: Container(
           alignment: Alignment.center,
           decoration: const BoxDecoration(

@@ -1,70 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:inft3101_group12_language_app/pages/login.dart';
-import 'package:inft3101_group12_language_app/pages/flashcard.dart';
-import 'package:inft3101_group12_language_app/pages/multiplechoice.dart';
-import 'package:inft3101_group12_language_app/pages/settings.dart';
-import 'package:inft3101_group12_language_app/pages/shortanswer.dart';
-import 'package:inft3101_group12_language_app/pages/signup.dart';
-import './theme/typo.dart';
+import 'package:provider/provider.dart';
+import 'pages/flashcard.dart';
+import 'pages/login.dart';
+import 'pages/settings.dart';
+import 'pages/signup.dart';
+import './widgets/custom_app_bar.dart';
 import './utils/responsive.dart';
+import './widgets/main_button.dart';
+import 'pages/multiplechoice.dart';
+import 'pages/shortanswer.dart';
+import './utils/UserState.dart';
+import './theme/typo.dart';
+import 'theme/color.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserState(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false, // hide debug banner
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // TRY THIS: Try running your application with "flutter run". You'll see
-          // the application has a purple toolbar. Then, without quitting the app,
-          // try changing the seedColor in the colorScheme below to Colors.green
-          // and then invoke "hot reload" (save your changes or press the "hot
-          // reload" button in a Flutter-supported IDE, or press "r" if you used
-          // the command line to start the app).
-          //
-          // Notice that the counter didn't reset back to zero; the application
-          // state is not lost during the reload. To reset the state, use hot
-          // restart instead.
-          //
-          // This works for code too, not just values: Most code changes can be
-          // tested with just a hot reload.
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 255, 255, 255)),
-          useMaterial3: true,
-        ),
-        home: const MyHomePage(title: '2AIR'),
-        routes: {
-          '/login': (context) => const LoginPage(),
-          '/settings': (context) => const SettingsPage(),
-          '/signup': (context) => const SignupPage(),
-          '/flashcard': (context) => const FlashCardPage(),
-          '/multiplechoice': (context) => const MultipleChoicePage(),
-          '/shortanswer': (context) => const ShortAnswerPage(),
-        });
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false, // Hide debug banner
+      theme: ThemeData(
+        scaffoldBackgroundColor:
+            AppColors.darkBackground, // Apply dark background
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: '2AIR'), // Set initial route
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/settings': (context) => const SettingsPage(),
+        '/signup': (context) => const SignupPage(),
+        '/flashcard': (context) => const FlashCardPage(),
+        '/multiplechoice': (context) => const MultipleChoicePage(),
+        '/shortanswer': (context) => const ShortAnswerPage(),
+      },
+    );
   }
 }
 
+// Main Home Page
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -72,216 +58,94 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final bool isLoggedIn = true;
+
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Colors.white,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/login');
-              },
-              icon: const Icon(Icons.perm_identity)),
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/settings');
-              },
-              icon: const Icon(Icons.settings))
-        ],
+      appBar: CustomAppBar(
+        title: widget.title,
+        isLoggedIn: isLoggedIn,
       ),
       body: Stack(
         children: [
+          // Background Container covering the whole screen
           Container(
-            alignment: Alignment.center,
+            width: double.infinity, // Full width
+            height: double.infinity, // Full height
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/bg-dark.jpg'),
-                fit: BoxFit.cover,
+                image: AssetImage('assets/bg-dark.jpg'), // Background image
+                fit: BoxFit.cover, // Cover the entire container
               ),
             ),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                    height: Responsive.heightPercentage(
-                        context, 15)), // 15% of view height
-                Text(
-                  'KOREAN QUIZ',
-                  style: AppTypography.mainTitleDark(context),
-                ),
-                SizedBox(height: Responsive.heightPercentage(context, 2)), //
-                SizedBox(
-                  width:
-                      Responsive.widthPercentage(context, 90), // 90% view width
-                  child: Text(
-                    'Dive Into Building Your Korean with interactive quizzes',
+          ),
+          SafeArea(
+            child: Center(
+              // Center all the content horizontally and vertically
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // Minimize space usage
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'KOREAN QUIZ',
+                    style: AppTypography.mainTitleDark(context),
                     textAlign: TextAlign.center,
-                    style: AppTypography.mainDescriptionDark(context),
                   ),
-                ),
-                SizedBox(height: Responsive.heightPercentage(context, 3)),
-                SizedBox(
-                  width: 312,
-                  height: 77.72,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/flashcard');
-                      },
-                      style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
-                      child: Stack(fit: StackFit.expand, children: [
-                        Ink(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: const DecorationImage(
-                                  image: AssetImage('assets/btn-dark.png'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(width: 20,),
-                              const Icon(
-                                Icons.style_outlined,
-                                color: Colors.white,
-                                size: 44,
-                              ),
-                              const SizedBox(width: 20),
-                              Builder(
-                                builder: (context) {
-                                  return Text(
-                                    'Vocabulary Card',
-                                    style: AppTypography.mainButtonTextDark(
-                                        context),
-                                  );
-                                },
-                              ),
-                            ])
-                      ])),
-                ),
-                SizedBox(height: Responsive.heightPercentage(context, 3)),
-                SizedBox(
-                  width: 312,
-                  height: 77.72,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/multiplechoice');
-                      },
-                      style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
-                      child: Stack(fit: StackFit.expand, children: [
-                        Ink(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: const DecorationImage(
-                                  image: AssetImage('assets/btn-dark.png'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(width: 20),
-                              const Icon(
-                                Icons.library_add_check_outlined,
-                                color: Colors.white,
-                                size: 44,
-                              ),
-                              const SizedBox(width: 20),
-                              Builder(
-                                builder: (context) {
-                                  return Text(
-                                    'Multiple Choice',
-                                    style: AppTypography.mainButtonTextDark(
-                                        context),
-                                  );
-                                },
-                              ),
-                            ])
-                      ])),
-                ),
-                SizedBox(height: Responsive.heightPercentage(context, 3)),
-                SizedBox(
-                  width: 312,
-                  height: 77.72,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/shortanswer');
-                      },
-                      style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
-                      child: Stack(fit: StackFit.expand, children: [
-                        Ink(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: const DecorationImage(
-                                  image: AssetImage('assets/btn-dark.png'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              const SizedBox(width: 20),
-                              const Icon(
-                                Icons.textsms_outlined,
-                                color: Colors.white,
-                                size: 44,
-                              ),
-                              const SizedBox(width: 20),
-                              Builder(
-                                builder: (context) {
-                                  return Text(
-                                    'Short Answer',
-                                    style: AppTypography.mainButtonTextDark(
-                                        context),
-                                  );
-                                },
-                              ),
-                            ])
-                      ])),
-                ),
-                const Spacer(), // space
-              ],
+                  SizedBox(height: Responsive.heightPercentage(context, 2)),
+                  SizedBox(
+                    width: Responsive.widthPercentage(context, 90),
+                    child: Text(
+                      'Dive Into Building Your Korean with interactive quizzes',
+                      textAlign: TextAlign.center,
+                      style: AppTypography.mainDescriptionDark(context),
+                    ),
+                  ),
+                  SizedBox(height: Responsive.heightPercentage(context, 3)),
+                  MainButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/flashcard');
+                    },
+                    text: 'Vocabulary Card',
+                    icon: Icons.style_outlined,
+                  ),
+                  SizedBox(height: Responsive.heightPercentage(context, 3)),
+                  MainButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/multiplechoice');
+                    },
+                    text: 'Multiple Choice',
+                    icon: Icons.library_add_check_outlined,
+                  ),
+                  SizedBox(height: Responsive.heightPercentage(context, 3)),
+                  MainButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/shortanswer');
+                    },
+                    text: 'Short Answer',
+                    icon: Icons.textsms_outlined,
+                  ),
+                ],
+              ),
             ),
           ),
-
-          // Footer positioned at the bottom
           Positioned(
-            bottom: Responsive.heightPercentage(context, 5), // 10% from bottom
+            bottom: Responsive.heightPercentage(context, 5),
             left: 0,
             right: 0,
             child: Column(
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Center align footer text
               children: [
                 Text(
                   'INFT 3101 Mobile Development',
                   textAlign: TextAlign.center,
-                  style: AppTypography.copywriteDark(context),
+                  style: AppTypography.staticCopywrite,
                 ),
                 Text(
                   '\u00a9 2024 2AIR',
                   textAlign: TextAlign.center,
-                  style: AppTypography.copywriteDark(context),
+                  style: AppTypography.staticCopywrite,
                 ),
               ],
             ),
