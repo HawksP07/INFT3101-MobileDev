@@ -35,45 +35,45 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
 
   @override
   void initState() {
-  super.initState();
-  fetchQuestions();
+    super.initState();
+    fetchQuestions();
   }
-   
+
   bool _checkAnswer(int answerVal) {
     int answerNum = 0;
     switch (_currentQuestion) {
       case 0:
         answerNum = 0;
         break;
-       case 1:
+      case 1:
         answerNum = 2;
         break;
-       case 2:
+      case 2:
         answerNum = 2;
         break;
-       case 3:
+      case 3:
         answerNum = 1;
         break;
-       case 4:
+      case 4:
         answerNum = 2;
         break;
-       case 5:
+      case 5:
         answerNum = 3;
         break;
-       case 6:
+      case 6:
         answerNum = 0;
         break;
-       case 7:
+      case 7:
         answerNum = 2;
         break;
-       case 8:
+      case 8:
         answerNum = 0;
         break;
-       case 9:
+      case 9:
         answerNum = 0;
         break;
       default:
-      return false;
+        return false;
     }
     if (answerVal == answerNum) {
       return true;
@@ -81,6 +81,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
       return false;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     List foo = [];
@@ -95,7 +96,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
     bar.add(foo[_currentQuestion]['question-answer'].toString().split(', '));
     // print("... bar: $bar, current question: $_currentQuestion");
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(isLoggedIn: false),
       body: BodyContainer(
         child: Column(
           children: [
@@ -383,23 +384,19 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                     style: ButtonStyle(
                       backgroundColor: const WidgetStatePropertyAll(Color.fromARGB(255, 0, 122, 255)),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)
-                      ))
-                    ), 
-                    child: const Text(
-                      'CHECK',  
-                      style: TextStyle(
+                          borderRadius: BorderRadius.circular(8)))),
+                  child: const Text(
+                    'CHECK',
+                    style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18
-                      ),
-                    ),
+                        fontSize: 18),
                   ),
                 ),
-          ],
+              ),
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar:const BottomNavBar(currentIndex: 1)
-    );
+        bottomNavigationBar: const BottomNavBar(currentIndex: 1));
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../utils/globals.dart';
+import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
 import '../utils/responsive.dart';
 import '../widgets/answer_modal.dart';
 import '../widgets/body_container.dart';
@@ -60,7 +62,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
   Widget build(BuildContext context) {
     if (_quizController.questions.isEmpty) {
       return const Scaffold(
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(isLoggedIn: false),
         body: Center(
           child: CircularProgressIndicator(),
         ),
@@ -71,7 +73,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
         _quizController.questions[_quizController.currentIndex];
 
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(isLoggedIn: false),
       body: BodyContainer(
         child: Column(
           children: [
@@ -126,11 +128,19 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
                 if (_checkAnswer(correctAnswer, userInput)) {
                   // Correct
                   _showAnswerModal(true);
+
+                  //somehow fetch users here
+
+                  if (loggedInUsername != null) {
+                    JsonCrud.incrementShortAnswerScore(loggedInUsername!);
+                  } else {
+                    print("No user is logged in.");
+                  }
+
                   setState(() {
                     answerController.clear();
                   });
                 } else {
-                  // Wrong answer
                   _showAnswerModal(false);
                 }
               },

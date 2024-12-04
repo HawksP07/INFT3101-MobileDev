@@ -18,6 +18,9 @@ class FlashCardPage extends StatefulWidget {
 class FlashCardPageState extends State<FlashCardPage> {
   final QuizController _quizController = QuizController();
 
+  // Temporary login status; replace with actual login state in future
+  final bool isLoggedIn = true;
+
   @override
   void initState() {
     super.initState();
@@ -33,9 +36,10 @@ class FlashCardPageState extends State<FlashCardPage> {
   Widget build(BuildContext context) {
     if (_quizController.questions.isEmpty) {
       // Loading
-      return const Scaffold(
-        appBar: CustomAppBar(),
-        body: Center(
+      return Scaffold(
+        appBar:
+            CustomAppBar(isLoggedIn: isLoggedIn), // Pass actual login status
+        body: const Center(
           child: CircularProgressIndicator(),
         ),
       );
@@ -45,7 +49,7 @@ class FlashCardPageState extends State<FlashCardPage> {
         _quizController.questions[_quizController.currentIndex];
 
     return Scaffold(
-      appBar: const CustomAppBar(), // CustomAppBar widget
+      appBar: CustomAppBar(isLoggedIn: isLoggedIn), // Pass actual login status
       body: BodyContainer(
         child: Column(
           children: [

@@ -8,7 +8,8 @@ class AnswerTextField extends StatelessWidget {
   const AnswerTextField({
     super.key,
     required this.controller,
-    required this.hintText, // hintText
+    required this.hintText,
+    required Null Function(String userInput) onSubmitted, // hintText
   });
 
   @override
