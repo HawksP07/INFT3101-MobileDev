@@ -1,0 +1,190 @@
+{
+  "questions": [
+    {
+      "type": "flash",
+      "question": 1,
+      "question-text": "Name, the term used to identify a person.",
+      "question-answer": "이름 /ee-rum/"
+    },
+    {
+      "type": "flash",
+      "question": 2,
+      "question-text": "Age, the number of years a person has lived.",
+      "question-answer": "나이 /nah-ee/"
+    },
+    {
+      "type": "flash",
+      "question": 3,
+      "question-text": "Hometown, the city or place where a person was born or raised.",
+      "question-answer": "고향 /go-hyang/"
+    },
+    {
+      "type": "flash",
+      "question": 4,
+      "question-text": "Hobby, activities a person enjoys doing in their free time.",
+      "question-answer": "취미 /chee-mee/"
+    },
+    {
+      "type": "flash",
+      "question": 5,
+      "question-text": "Job / Occupation, the work or profession someone does.",
+      "question-answer": "직업 /jee-gup/"
+    },
+    {
+      "type": "flash",
+      "question": 6,
+      "question-text": "Family, the group of people related by blood or marriage, like parents and siblings.",
+      "question-answer": "가족 /ga-jok/"
+    },
+    {
+      "type": "flash",
+      "question": 7,
+      "question-text": "Personality, the characteristics that define a person’s behaviour and attitude.",
+      "question-answer": "성격 /sung-gyuk/"
+    },
+    {
+      "type": "flash",
+      "question": 8,
+      "question-text": "Special Skill, something a person is especially good at.",
+      "question-answer": "특기 /took-gee/"
+    },
+    {
+      "type": "flash",
+      "question": 9,
+      "question-text": "School, an institution where people go to learn.",
+      "question-answer": "학교 /hak-gyo/"
+    },
+    {
+      "type": "flash",
+      "question": 10,
+      "question-text": "Hobby, activities a person enjoys doing in their free time.",
+      "question-answer": "친구 /chin-goo/"
+    },
+    {
+      "type": "multiple",
+      "question": 1,
+      "question-text": "What is the Korean word for 'Hello'?",
+      "question-answer": "안녕 ahn-nyung, 감사합니다 gam-sa-ham-ni-da, 미안해요 mi-an-hae-yo, 잘 가요 jal ga-yo"
+    },
+    {
+      "type": "multiple",
+      "question": 2,
+      "question-text": "How do you say 'Thank you' in Korean?",
+      "question-answer": "미안해요 mi-an-hae-yo, 안녕하세요 ahn-nyung-ha-se-yo, 감사합니다 gam-sa-ham-ni-da, 주세요 ju-se-yo"
+    },
+    {
+      "type": "multiple",
+      "question": 3,
+      "question-text": "When would you say '미안해요 (mi-an-hae-yo)' in Korean?",
+      "question-answer": "When greeting someone, When thanking someone, When apologizing, When asking for help"
+    },
+    {
+      "type": "multiple",
+      "question": 4,
+      "question-text": "How do you say 'How are you?' in Korean?",
+      "question-answer": "뭐예요? mwo-ye-yo?, 어떻게 지내세요? uh-ttuh-ke ji-nae-se-yo?, 언제 만나요? uhn-je man-na-yo?, 어디에 가세요? uh-di-eh ga-se-yo?"
+    },
+    {
+      "type": "multiple",
+      "question": 5,
+      "question-text": "Which is the correct Korean word for 'Please'?",
+      "question-answer": "제발 je-bal, 어서 오세요 uh-suh o-se-yo, 주세요 ju-se-yo, 잠깐만요 jam-kkan-man-yo"
+    },
+    {
+      "type": "multiple",
+      "question": 6,
+      "question-text": "In what situation would you say '잘 자요 (jal ja-yo)' in Korean?",
+      "question-answer": "In the morning, At lunch, In the evening, At night"
+    },
+    {
+      "type": "multiple",
+      "question": 7,
+      "question-text": "What is the correct Korean expression for 'Goodbye'?",
+      "question-answer": "안녕히 가세요 ahn-nyung-hi ga-se-yo, 안녕히 주무세요 ahn-nyung-hi ju-mu-se-yo, 만나서 반가워요 man-na-suh ban-ga-wo-yo, 천만에요 chun-man-eh-yo"
+    },
+    {
+      "type": "multiple",
+      "question": 8,
+      "question-text": "How do you say 'Nice to meet you' in Korean?",
+      "question-answer": "안녕하세요 ahn-nyung-ha-se-yo, 잘 가요 jal ga-yo, 만나서 반가워요 man-na-suh ban-ga-wo-yo, 어떻게 지내세요? uh-ttuh-ke ji-nae-se-yo"
+    },
+    {
+      "type": "multiple",
+      "question": 9,
+      "question-text": "How do you say 'Where is the bathroom?' in Korean?",
+      "question-answer": "화장실 어디예요? hwa-jang-shil uh-di-ye-yo?, 어디 가세요? uh-di ga-se-yo?, 화장실 가요? hwa-jang-shil ga-yo?, 여기 앉아요? yuh-gi an-ja-yo?"
+    },
+    {
+      "type": "multiple",
+      "question": 10,
+      "question-text": "How do you say 'Can I get some water?' in Korean?",
+      "question-answer": "물 주세요 mul ju-se-yo,  물 있어요? mul i-sseo-yo?, 물 좀 드세요 mul jom deu-se-yo, 물 가세요 mul ga-se-yo"
+    },
+    {
+      "type": "short",
+      "question": 1,
+      "question-text": "What does '안녕' mean in English?",
+      "question-answer": "hello"
+    },
+    {
+      "type": "short",
+      "question": 2,
+      "question-text": "What does '내 이름은 에이미야' mean in English?",
+      "question-answer": "My name is Amy"
+    },
+    {
+      "type": "short",
+      "question": 3,
+      "question-text": "What does '감사합니다' mean in English?",
+      "question-answer": "thank you"
+    },
+    {
+      "type": "short",
+      "question": 4,
+      "question-text": "What does '미안해요' mean in English?",
+      "question-answer": "sorry"
+    },
+    {
+      "type": "short",
+      "question": 5,
+      "question-text": "What does '안녕히 가세요' mean in English (when someone is leaving)?",
+      "question-answer": "goodbye"
+    },
+    {
+      "type": "short",
+      "question": 6,
+      "question-text": "What does '주세요' mean in English?",
+      "question-answer": "please"
+    },
+    {
+      "type": "short",
+      "question": 7,
+      "question-text": "What does '어떻게 지내세요?' mean in English?",
+      "question-answer": "How are you?"
+    },
+    {
+      "type": "short",
+      "question": 8,
+      "question-text": "What does '만나서 반가워요' mean in English?",
+      "question-answer": "nice to meet you"
+    },
+    {
+      "type": "short",
+      "question": 9,
+      "question-text": "What does '화장실' mean in English?",
+      "question-answer": "washroom"
+    },
+    {
+      "type": "short",
+      "question": 10,
+      "question-text": "What does '잘 자요' mean in English?",
+      "question-answer": "good night"
+    },
+    {
+      "type": "short",
+      "question": 11,
+      "question-text": "What does '친구' mean in English?",
+      "question-answer": "friend"
+    }
+  ]
+}
