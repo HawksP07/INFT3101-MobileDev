@@ -20,6 +20,6 @@ class ThemeNotifier extends ChangeNotifier {
 
   void updateBackgroundColor(Color color) {
     _backgroundColor = color;
-    notifyListeners(); // 상태 변경 알림
+    notifyListeners(); // notice theme state
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../theme/typo.dart';
-import '../theme/color.dart';
 
 class MainButton extends StatelessWidget {
   final VoidCallback onPressed; // Button press action
