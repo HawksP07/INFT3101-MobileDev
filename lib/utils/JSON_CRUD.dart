@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io'; // For file operations
 import 'package:inft3101_group12_language_app/pages/login.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path; // For handling paths
 
 class JsonCrud {
@@ -88,6 +89,30 @@ class JsonCrud {
       await writeJson(jsonData);
 
       print("Incremented short_answer_score for user: $username");
+    } catch (e) {
+      print("Error incrementing score: $e");
+    }
+  }
+
+    static Future<void> incrementMultipleChoiceScore(String username) async {
+    try {
+      // Read the JSON data
+      Map<String, dynamic> jsonData = await readJson();
+      List<dynamic> users = jsonData['users'] ?? [];
+
+      // Find the user and update the score
+      for (var user in users) {
+        if (user['username'] == username) {
+          user['multiple_choice_score'] = (user['multiple_choice_score'] ?? 0) + 10;
+          break; // Stop once the user is found
+        }
+      }
+
+      // Write the updated data back to the file
+      jsonData['users'] = users;
+      await writeJson(jsonData);
+
+      print("Incremented multiple_choice_score for user: $username");
     } catch (e) {
       print("Error incrementing score: $e");
     }
