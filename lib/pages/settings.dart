@@ -3,13 +3,11 @@ import 'package:provider/provider.dart';
 import '../theme/color.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/bottom_nav.dart';
-import '../utils/UserState.dart';
 import '../theme/typo.dart';
+import '../utils/themeNotifier.dart';
 
 class SettingsPage extends StatefulWidget {
-  final Function(bool) onThemeToggle;
-
-  const SettingsPage({super.key, required this.onThemeToggle});
+  const SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -17,29 +15,23 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   double _volume = 50;
-  bool _isDarkMode = true; // Default to dark mode
-  Color _selectedColor = AppColors.primary;
 
   final List<Color> _availableColors = [
-    Colors.blue,
+    AppColors.darkBackground,
+    AppColors.lightGray,
     Colors.green,
     Colors.red,
-    Colors.yellow,
     Colors.purple,
     Colors.orange,
   ];
 
-  bool get isLoggedIn {
-    final userState = Provider.of<UserState>(context, listen: false);
-    return userState.username != null;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return Scaffold(
-      backgroundColor:
-          _isDarkMode ? AppColors.darkBackground : AppColors.lightBackground,
-      appBar: CustomAppBar(isLoggedIn: isLoggedIn),
+      backgroundColor: themeNotifier.backgroundColor,
+      appBar: const CustomAppBar(isLoggedIn: true),
       bottomNavigationBar: const BottomNavBar(currentIndex: null),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
@@ -52,12 +44,11 @@ class _SettingsPageState extends State<SettingsPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            // Title
             Text(
               'Settings',
-              style: _isDarkMode
-                  ? AppTypography.mainTitleDark(context) // Dark mode style
-                  : AppTypography.mainTitleLight(context), // Light mode style
+              style: themeNotifier.isDarkMode
+                  ? AppTypography.mainTitleDark(context)
+                  : AppTypography.mainTitleLight(context),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -74,7 +65,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       'Volume',
                       style: TextStyle(
                         fontSize: 18,
-                        color: _isDarkMode ? AppColors.darkGray : Colors.black,
+                        color: themeNotifier.isDarkMode
+                            ? AppColors.darkGray
+                            : Colors.black,
                       ),
                     ),
                     const Spacer(),
@@ -105,59 +98,60 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 20),
             // Color Selection
-            // Card(
-            //   color: Colors.white,
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(16.0),
-            //     child: Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Row(
-            //           children: [
-            //             const Icon(Icons.color_lens_outlined, size: 30),
-            //             const SizedBox(width: 16),
-            //             Text(
-            //               'Colors',
-            //               style: TextStyle(
-            //                 fontSize: 18,
-            //                 color:
-            //                     _isDarkMode ? AppColors.darkGray : Colors.black,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //         const SizedBox(height: 16),
-            //         Wrap(
-            //           spacing: 10,
-            //           children: _availableColors.map((color) {
-            //             return GestureDetector(
-            //               onTap: () {
-            //                 setState(() {
-            //                   _selectedColor = color;
-            //                 });
-            //               },
-            //               child: Container(
-            //                 width: 40,
-            //                 height: 40,
-            //                 decoration: BoxDecoration(
-            //                   color: color,
-            //                   shape: BoxShape.circle,
-            //                   border: Border.all(
-            //                     color: color == _selectedColor
-            //                         ? Colors.black
-            //                         : Colors.transparent,
-            //                     width: 2,
-            //                   ),
-            //                 ),
-            //               ),
-            //             );
-            //           }).toList(),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            Card(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.color_lens_outlined, size: 30),
+                        const SizedBox(width: 16),
+                        Text(
+                          'Colors',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: themeNotifier.isDarkMode
+                                ? AppColors.darkGray
+                                : Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Wrap(
+                      spacing: 10,
+                      children: _availableColors.map((color) {
+                        return GestureDetector(
+                          onTap: () {
+                            themeNotifier.updateBackgroundColor(color);
+                          },
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: color,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: color == themeNotifier.backgroundColor
+                                    ? Colors.black
+                                    : Colors.transparent,
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             // Dark Mode Toggle
             Card(
               color: Colors.white,
@@ -171,17 +165,16 @@ class _SettingsPageState extends State<SettingsPage> {
                       'Dark Mode',
                       style: TextStyle(
                         fontSize: 18,
-                        color: _isDarkMode ? AppColors.darkGray : Colors.black,
+                        color: themeNotifier.isDarkMode
+                            ? AppColors.darkGray
+                            : Colors.black,
                       ),
                     ),
                     const Spacer(),
                     Switch(
-                      value: _isDarkMode,
+                      value: themeNotifier.isDarkMode,
                       onChanged: (value) {
-                        setState(() {
-                          _isDarkMode = value;
-                        });
-                        widget.onThemeToggle(value);
+                        themeNotifier.toggleTheme();
                       },
                     ),
                   ],

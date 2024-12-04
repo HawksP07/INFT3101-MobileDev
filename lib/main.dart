@@ -12,42 +12,38 @@ import 'pages/shortanswer.dart';
 import './utils/UserState.dart';
 import './theme/theme.dart';
 import './theme/typo.dart';
+import 'utils/themeNotifier.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserState(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+        ChangeNotifierProvider(create: (_) => UserState()), // UserState 추가
+      ],
       child: const MyApp(),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool _isDarkMode = false; // Track the theme mode
-
-  @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: _isDarkMode ? darkTheme : lightTheme, // Use dynamic theme
-      home: const MyHomePage(title: '2AIR'),
+      theme: themeNotifier.isDarkMode ? darkTheme : lightTheme,
+      home: ThemedBackground(
+        isDarkMode: themeNotifier.isDarkMode,
+        child: const MyHomePage(title: '2AIR'), //
+      ),
       routes: {
         '/login': (context) => const LoginPage(),
-        '/settings': (context) => SettingsPage(
-              onThemeToggle: (isDark) {
-                setState(() {
-                  _isDarkMode = isDark; // Update theme mode
-                });
-              },
-            ),
+        '/settings': (context) => const SettingsPage(), // Provider
         '/signup': (context) => const SignupPage(),
         '/flashcard': (context) => const FlashCardPage(),
         '/multiplechoice': (context) => const MultipleChoicePage(),
@@ -74,21 +70,20 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Background Container covering the whole screen
           Container(
-            width: double.infinity, // Full width
-            height: double.infinity, // Full height
+            width: double.infinity,
+            height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/bg-dark.jpg'), // Background image
-                fit: BoxFit.cover, // Cover the entire container
+                image: AssetImage('assets/bg-dark.jpg'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
           SafeArea(
             child: Center(
               child: Column(
-                mainAxisSize: MainAxisSize.min, // Minimize space usage
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
@@ -111,7 +106,6 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: Responsive.heightPercentage(context, 3)),
-                  // Buttons Row for Landscape Mode
                   if (isLandscape)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -140,7 +134,6 @@ class MyHomePage extends StatelessWidget {
                       ],
                     )
                   else
-                    // Buttons Column for Portrait Mode
                     Column(
                       children: [
                         MainButton(
@@ -179,8 +172,7 @@ class MyHomePage extends StatelessWidget {
             left: 0,
             right: 0,
             child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, // Center align footer text
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'INFT 3101 Mobile Development',
@@ -204,8 +196,7 @@ class MyHomePage extends StatelessWidget {
       {required String text,
       required IconData icon,
       required VoidCallback onPressed}) {
-    final size = Responsive.widthPercentage(
-        context, 25); // Square size relative to width
+    final size = Responsive.widthPercentage(context, 25);
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -217,7 +208,7 @@ class MyHomePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: size * 0.4), // Icon size relative to button size
+          Icon(icon, size: size * 0.4),
           SizedBox(height: size * 0.1),
           Text(
             text,
