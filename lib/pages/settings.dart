@@ -4,6 +4,7 @@ import '../theme/color.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/bottom_nav.dart';
 import '../utils/UserState.dart';
+import '../theme/typo.dart';
 
 class SettingsPage extends StatefulWidget {
   final Function(bool) onThemeToggle;
@@ -16,7 +17,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   double _volume = 50;
-  bool _isDarkMode = false;
+  bool _isDarkMode = true; // Default to dark mode
   Color _selectedColor = AppColors.primary;
 
   final List<Color> _availableColors = [
@@ -36,6 +37,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:
+          _isDarkMode ? AppColors.darkBackground : AppColors.lightBackground,
       appBar: CustomAppBar(isLoggedIn: isLoggedIn),
       bottomNavigationBar: const BottomNavBar(currentIndex: null),
       body: SingleChildScrollView(
@@ -48,15 +51,32 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            // Title
+            Text(
+              'Settings',
+              style: _isDarkMode
+                  ? AppTypography.mainTitleDark(context) // Dark mode style
+                  : AppTypography.mainTitleLight(context), // Light mode style
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             // Volume Control
             Card(
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   children: [
                     const Icon(Icons.volume_up, size: 30),
                     const SizedBox(width: 16),
-                    const Text('Volume', style: TextStyle(fontSize: 18)),
+                    Text(
+                      'Volume',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: _isDarkMode ? AppColors.darkGray : Colors.black,
+                      ),
+                    ),
                     const Spacer(),
                     IconButton(
                       icon: Icon(
@@ -87,16 +107,24 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             // Color Selection
             Card(
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.color_lens_outlined, size: 30),
-                        SizedBox(width: 16),
-                        Text('Colors', style: TextStyle(fontSize: 18)),
+                        const Icon(Icons.color_lens_outlined, size: 30),
+                        const SizedBox(width: 16),
+                        Text(
+                          'Colors',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color:
+                                _isDarkMode ? AppColors.darkGray : Colors.black,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -132,13 +160,20 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             // Dark Mode Toggle
             Card(
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   children: [
                     const Icon(Icons.dark_mode, size: 30),
                     const SizedBox(width: 16),
-                    const Text('Dark Mode', style: TextStyle(fontSize: 18)),
+                    Text(
+                      'Dark Mode',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: _isDarkMode ? AppColors.darkGray : Colors.black,
+                      ),
+                    ),
                     const Spacer(),
                     Switch(
                       value: _isDarkMode,

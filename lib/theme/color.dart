@@ -13,5 +13,8 @@ class AppColors {
   static const Color red = Color.fromARGB(255, 240, 1, 32);
 
   // ignore: prefer_typing_uninitialized_variables
-  static var availableColors; // #F00120
+  static var availableColors;
+
+  // ignore: prefer_typing_uninitialized_variables
+  static var lightBackground; // #F00120
 }
