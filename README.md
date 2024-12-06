@@ -16,13 +16,13 @@ The purpose of developing a language learning app is based on my experience teac
 
 ## App design
 
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-12.png)
-![alt text](image-14.png)
-![alt text](image-13.png)
-![alt text](image-15.png)
-![alt text](image-16.png)
+![alt text](./assets/readme_img/image.png)
+![alt text](./assets/readme_img/image-1.png)
+![alt text](./assets/readme_img/image-12.png)
+![alt text](./assets/readme_img/image-14.png)
+![alt text](./assets/readme_img/image-13.png)
+![alt text](./assets/readme_img/image-15.png)
+![alt text](./assets/readme_img/image-16.png)
 
 ## Features
 
@@ -45,7 +45,7 @@ The purpose of developing a language learning app is based on my experience teac
 
 ## User Flow
 
-![alt text](image-8.png)
+![alt text](./assets/readme_img/image-8.png)
 
 ## Technologies
 
