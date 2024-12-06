@@ -2,6 +2,8 @@
 
 This app, 2AIR Korean Quiz, is a Flutter-based Android application designed to help users improve their Korean language skills through engaging quizzes.
 
+### Work Period: 2024. 11. 13 - 12. 4
+
 # Purpose
 
 The purpose of developing a language learning app is based on my experience teaching Korean. I found that incorporating quiz apps like Kahoot as study tools was highly effective in engaging and motivating my students. This inspired me to create a dedicated app that offers fun and stimulating features for learning, such as media interactions and quiz activities. Through this app, students will be able to enjoy learning while I can collect real user feedback. Additionally, by publishing it on Google, the app can reach a wider audience who may find it beneficial for their language learning journey.
@@ -15,6 +17,12 @@ The purpose of developing a language learning app is based on my experience teac
 ## App design
 
 ![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
 
 ## Features
 
@@ -34,6 +42,10 @@ The purpose of developing a language learning app is based on my experience teac
 - **Loading State and Error Handling**:
   - A loading indicator ensures the app provides visual feedback while questions are being fetched.
   - Error handling ensures smooth functionality even in case of unexpected inputs or issues.
+
+## User Flow
+
+![alt text](image-8.png)
 
 ## Technologies
 
