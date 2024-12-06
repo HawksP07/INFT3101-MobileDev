@@ -116,7 +116,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
             AnswerTextField(
               controller: answerController,
               hintText: 'Type your answer here',
-              // onSubmitted: (String userInput) {}, //TODO this was broken idk why
+              onSubmitted: (String userInput) {}, //TODO this was broken idk why
             ),
             const SizedBox(height: 20),
             // Submit Button

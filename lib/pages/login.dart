@@ -74,7 +74,8 @@ class _LoginPageState extends State<LoginPage> {
 
     if (userFound) {
       print("Login successful!");
-      Navigator.pushNamed(context, '/');
+      // Navigator.pushNamed(context, '/');
+      Navigator.pushNamedAndRemoveUntil(context, '/', (_)=>false);
     } else {
       print("Invalid username or password.");
     }
