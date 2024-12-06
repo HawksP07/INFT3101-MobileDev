@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io'; // For file operations
 import 'package:inft3101_group12_language_app/pages/login.dart';
 import 'package:path/path.dart' as path; // For handling paths
+import 'package:shared_preferences/shared_preferences.dart';
 
 class JsonCrud {
   static const String _fileName = 'users.json';

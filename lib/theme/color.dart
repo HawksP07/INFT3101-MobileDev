@@ -10,5 +10,11 @@ class AppColors {
   static const Color gray = Color.fromARGB(255, 120, 120, 120); // #787878
   static const Color lightGray = Color.fromARGB(255, 237, 236, 236); // #EDECEC
   static const Color green = Color.fromARGB(255, 1, 217, 58); // #01D93A
-  static const Color red = Color.fromARGB(255, 240, 1, 32); // #F00120
+  static const Color red = Color.fromARGB(255, 240, 1, 32);
+
+  // ignore: prefer_typing_uninitialized_variables
+  static var availableColors;
+
+  // ignore: prefer_typing_uninitialized_variables
+  static var lightBackground; // #F00120
 }

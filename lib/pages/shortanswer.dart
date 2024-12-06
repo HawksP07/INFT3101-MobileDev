@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
-import '../utils/globals.dart';
 import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
 import '../utils/responsive.dart';
 import '../widgets/answer_modal.dart';
@@ -12,6 +13,7 @@ import '../widgets/card.dart';
 import '../utils/quiz_controller.dart';
 import '../widgets/text_field.dart';
 import '../widgets/button.dart';
+import '../utils/sessionControl.dart'; // Import session control utility
 
 class ShortAnswerPage extends StatefulWidget {
   const ShortAnswerPage({super.key});
@@ -21,8 +23,10 @@ class ShortAnswerPage extends StatefulWidget {
 }
 
 class _ShortAnswerPageState extends State<ShortAnswerPage> {
-  final QuizController _quizController = QuizController();
-  final TextEditingController answerController = TextEditingController();
+  final QuizController _quizController =
+      QuizController(); // Quiz controller to manage state
+  final TextEditingController answerController =
+      TextEditingController(); // Text controller for user input
 
   @override
   void initState() {
@@ -30,15 +34,18 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
     _loadQuestions();
   }
 
+  // Load questions from JSON file
   Future<void> _loadQuestions() async {
     await _quizController.loadQuestions('assets/questions.json', 'short');
-    setState(() {}); // update
+    setState(() {}); // Refresh UI after loading questions
   }
 
+  // Check if the user answer matches the correct answer
   bool _checkAnswer(String correctAnswer, String userInput) {
     return correctAnswer.trim().toLowerCase() == userInput.trim().toLowerCase();
   }
 
+  // Show the modal to indicate whether the answer is correct or not
   void _showAnswerModal(bool isCorrect) {
     showDialog(
       context: context,
@@ -51,6 +58,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
                   _quizController.questions.length - 1) {
             setState(() {
               _quizController.goToNext();
+              answerController.clear(); // Clear input for the next question
             });
           }
         },
@@ -60,6 +68,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Show a loading indicator if questions are still loading
     if (_quizController.questions.isEmpty) {
       return const Scaffold(
         appBar: CustomAppBar(isLoggedIn: false),
@@ -69,6 +78,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
       );
     }
 
+    // Get the current question
     final currentQuestion =
         _quizController.questions[_quizController.currentIndex];
 
@@ -94,12 +104,14 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
             // Card Widget
             CardWidget(
               question: currentQuestion['question-text'],
-              answer: 'Answer Hidden', //
+              answer: 'Answer Hidden',
               onPrevious: _quizController.currentIndex == 0
                   ? null
                   : () {
                       setState(() {
                         _quizController.goToPrevious();
+                        answerController
+                            .clear(); // Clear input for previous question
                       });
                     },
               onNext: _quizController.currentIndex ==
@@ -108,6 +120,8 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
                   : () {
                       setState(() {
                         _quizController.goToNext();
+                        answerController
+                            .clear(); // Clear input for next question
                       });
                     },
             ),
@@ -116,23 +130,32 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
             AnswerTextField(
               controller: answerController,
               hintText: 'Type your answer here',
-              onSubmitted: (String userInput) {}, //TODO this was broken idk why
+              onSubmitted: (String userInput) {
+                String correctAnswer = currentQuestion['question-answer'];
+                if (_checkAnswer(correctAnswer, userInput)) {
+                  _showAnswerModal(true);
+                } else {
+                  _showAnswerModal(false);
+                }
+              },
             ),
             const SizedBox(height: 20),
             // Submit Button
             CustomButton(
-              onPressed: () {
+              onPressed: () async {
                 String userInput = answerController.text.trim();
                 String correctAnswer =
                     currentQuestion['question-answer'].trim();
                 if (_checkAnswer(correctAnswer, userInput)) {
-                  // Correct
+                  // Correct answer flow
                   _showAnswerModal(true);
 
-                  //somehow fetch users here
+                  // Fetch logged-in username from session
+                  String? loggedInUsername = await loadSession();
 
                   if (loggedInUsername != null) {
-                    JsonCrud.incrementShortAnswerScore(loggedInUsername!);
+                    // Increment the user's score
+                    JsonCrud.incrementShortAnswerScore(loggedInUsername);
                   } else {
                     print("No user is logged in.");
                   }
@@ -141,6 +164,7 @@ class _ShortAnswerPageState extends State<ShortAnswerPage> {
                     answerController.clear();
                   });
                 } else {
+                  // Wrong answer flow
                   _showAnswerModal(false);
                 }
               },
