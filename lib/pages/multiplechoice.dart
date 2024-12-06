@@ -9,6 +9,7 @@ import 'package:inft3101_group12_language_app/widgets/body_container.dart';
 import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
 import 'package:inft3101_group12_language_app/widgets/btn_end_quiz.dart';
 import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
+import '../theme/color.dart';
 
 class MultipleChoicePage extends StatefulWidget {
   const MultipleChoicePage({super.key});
