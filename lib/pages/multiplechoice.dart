@@ -5,7 +5,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inft3101_group12_language_app/theme/color.dart';
+import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
+import 'package:inft3101_group12_language_app/utils/globals.dart';
+import 'package:inft3101_group12_language_app/utils/quiz_controller.dart';
 import 'package:inft3101_group12_language_app/utils/responsive.dart';
+import 'package:inft3101_group12_language_app/widgets/answer_modal.dart';
 import 'package:inft3101_group12_language_app/widgets/body_container.dart';
 import 'package:inft3101_group12_language_app/widgets/bottom_nav.dart';
 import 'package:inft3101_group12_language_app/widgets/btn_end_quiz.dart';
@@ -20,23 +24,38 @@ class MultipleChoicePage extends StatefulWidget {
 }
 
 class _MultipleChoicePageState extends State<MultipleChoicePage> {
+  final QuizController _quizController = QuizController();
   List _questions = [];
   var _currentQuestion = 0;
   int _selectedAnswer = -1;
 
-  Future<void> fetchQuestions() async {
-    final String response = await rootBundle.loadString('questions.json');
-    final data = await json.decode(response);
-    setState(() {
-      _questions = data['questions'];
-      // print("...number of questions ${_questions.length}");
-    });
+  Future<void> _loadQuestions() async {
+    await _quizController.loadQuestions('assets/questions.json', 'multiple');
+    setState(() {}); // update
   }
 
   @override
   void initState() {
     super.initState();
-    fetchQuestions();
+    _loadQuestions();
+  }
+  void _showAnswerModal(bool isCorrect) {
+    showDialog(
+      context: context,
+      builder: (context) => AnswerModal(
+        isCorrect: isCorrect,
+        onClose: () {
+          Navigator.of(context).pop();
+          if (isCorrect &&
+              _quizController.currentIndex <
+                  _quizController.questions.length - 1) {
+            setState(() {
+              _quizController.goToNext();
+            });
+          }
+        },
+      ),
+    );
   }
 
   bool _checkAnswer(int answerVal) {
@@ -84,16 +103,17 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
 
   @override
   Widget build(BuildContext context) {
-    List foo = [];
-    for (var question in _questions) {
-      if (question['type'] == 'multiple') {
-        foo.add(question);
-        // print("...flash question: ${question}");
-      }
+    if (_quizController.questions.isEmpty) {
+      return const Scaffold(
+        appBar: CustomAppBar(isLoggedIn: false),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
     // print("...All of foo: ${foo[0]['question-text']}");
     List bar = [];
-    bar.add(foo[_currentQuestion]['question-answer'].toString().split(', '));
+    bar.add(_quizController.questions[_currentQuestion]['question-answer'].toString().split(', '));
     // print("... bar: $bar, current question: $_currentQuestion");
     return Scaffold(
       appBar: const CustomAppBar(isLoggedIn: false),
@@ -107,7 +127,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
             ),
             child: const BtnEndQuiz(),
           ),
-          ProgressBarWidget(title: 'Multilpe Choice Quiz', current: (_currentQuestion + 1), total: foo.length),
+          ProgressBarWidget(title: 'Multilpe Choice Quiz', current: (_currentQuestion + 1), total: _quizController.questions.length),
             const SizedBox(
               height: 20,
             ),
@@ -141,7 +161,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       width: 350,
                       child: Center(
                         child: Text(
-                        foo[_currentQuestion]['question-text'],
+                        _quizController.questions[_currentQuestion]['question-text'],
                         style: const TextStyle(
                           color: Colors.black, 
                           fontSize: 22,
@@ -182,7 +202,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                         TextButton.icon(
                           onPressed: () {
                             // print(foo.length);
-                            if (_currentQuestion < foo.length - 1) {
+                            if (_currentQuestion < _quizController.questions.length - 1) {
                               
                               setState(() {
                                 _currentQuestion++;
@@ -366,7 +386,15 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                     onPressed: () {
                       bool answerCheck = _checkAnswer(_selectedAnswer);
                       if (answerCheck) {
-                        if (_currentQuestion < foo.length - 1) {
+                        _showAnswerModal(true);
+                        if (loggedInUsername != null){
+                          JsonCrud.incrementShortAnswerScore(loggedInUsername!);
+                        } else {
+                          print("No user is logged in.");
+                        }
+                          
+
+                        if (_currentQuestion < _quizController.questions.length - 1) {
                           setState(() {
                             _currentQuestion = _currentQuestion + 1;
                             _selectedAnswer = -1;
