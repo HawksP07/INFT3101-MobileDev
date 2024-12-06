@@ -215,5 +215,15 @@ class AppTypography {
     color: Colors.white,
   );
 
+  // ignore: prefer_typing_uninitialized_variables
   static var staticTextMedium;
+
+  static mainTitleLight(BuildContext context) {
+    return _base(
+      context: context,
+      fontSizeRem: 7,
+      fontWeight: FontWeight.bold,
+      color: AppColors.darkGray,
+    );
+  }
 }

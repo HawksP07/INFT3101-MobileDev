@@ -1,14 +1,12 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously, unused_import
+// ignore_for_file: avoid_print
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:inft3101_group12_language_app/utils/JSON_CRUD.dart';
-import 'package:inft3101_group12_language_app/utils/globals.dart';
-import 'package:inft3101_group12_language_app/widgets/custom_app_bar.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
 import '../utils/UserState.dart';
+import '../widgets/custom_app_bar.dart';
+import '../utils/sessionControl.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,16 +16,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class UserService {
-  static printFormattedJsonResponse(String response) {
+  static void printFormattedJsonResponse(String response) {
     try {
-      // Decode the JSON string into a Dart object
-      var jsonResponse = json.decode(response);
-
-      // Encode it back to a string with indentation for pretty printing
-      var prettyJson = const JsonEncoder.withIndent('  ')
-          .convert(jsonResponse); // Two spaces for indentation
-
-      // Print the formatted JSON
+      final jsonResponse = json.decode(response);
+      final prettyJson =
+          const JsonEncoder.withIndent('  ').convert(jsonResponse);
       print("🌐 Raw JSON Response:\n$prettyJson\n");
     } catch (e) {
       print("🚫 Error decoding JSON response: $e");
@@ -44,40 +37,66 @@ class UserService {
 
 class _LoginPageState extends State<LoginPage> {
   List _users = [];
-
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _loadUsers(); // Load users when the widget initializes
+    _loadUsers();
+    _checkSession(); // Load session on startup
   }
 
   Future<void> _loadUsers() async {
-    _users = await UserService.fetchUsers(); // Fetch users and set to _users
-    setState(() {
-      print("Users loaded: ${_users.length}"); // Print loaded user count
-    });
+    try {
+      _users = await UserService.fetchUsers();
+      setState(() {
+        print("Users loaded: ${_users.length}");
+      });
+    } catch (e) {
+      print("Error loading users: $e");
+    }
+  }
+
+  Future<void> _checkSession() async {
+    String? loggedInUser = await loadSession(); // Load session
+    if (loggedInUser != null) {
+      // User is already logged in
+      Provider.of<UserState>(context, listen: false).login(loggedInUser);
+      Navigator.pushNamed(context, '/'); // Navigate to the home page
+    }
   }
 
   Future<void> login(String username, String password) async {
-    bool userFound = false;
-    for (var user in _users) {
-      if (user['username'] == username && user['password'] == password) {
-        userFound = true;
-        // Set the username in UserState
-        Provider.of<UserState>(context, listen: false).login(username);
-        break;
-      }
-    }
+    final user = _users.firstWhere(
+      (user) => user['username'] == username && user['password'] == password,
+      orElse: () => null,
+    );
 
-    if (userFound) {
+    if (user != null) {
+      Provider.of<UserState>(context, listen: false).login(username);
+      await saveSession(username); // Save the session
       print("Login successful!");
       Navigator.pushNamed(context, '/');
     } else {
-      print("Invalid username or password.");
+      _showErrorDialog("Invalid username or password.");
     }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Login Error"),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -85,127 +104,93 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: const CustomAppBar(isLoggedIn: false),
       body: Container(
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/bg-dark.jpg'), fit: BoxFit.cover)),
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/bg-dark.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 171),
-              const Text('Login',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 44,
-                      fontWeight: FontWeight.bold)),
-              const SizedBox(height: 60),
-              SizedBox(
-                width: 312.00,
-                child: TextField(
-                  controller: usernameController,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color.fromARGB(255, 249, 249, 249),
-                      hintText: 'Username',
-                      hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 196, 196, 196)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      suffixIcon: const IconButton(
-                        onPressed: null,
-                        icon: Icon(Icons.email,
-                            color: Color.fromARGB(255, 196, 196, 196)),
-                      )),
+              const Text(
+                'Login',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 44,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 22),
-              SizedBox(
-                width: 312.00,
-                child: TextField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color.fromARGB(255, 249, 249, 249),
-                      hintText: 'Password',
-                      hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 196, 196, 196)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      suffixIcon: const IconButton(
-                          onPressed: null,
-                          icon: Icon(Icons.remove_red_eye,
-                              color: Color.fromARGB(255, 196, 196, 196)))),
-                ),
-              ),
-              const SizedBox(height: 29),
-              const SizedBox(
-                width: 352.00,
-                child: CheckboxListTile(
-                  value: false,
-                  onChanged: null,
-                  title: Text('Remember Password',
-                      style: TextStyle(color: Colors.white, fontSize: 22)),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  fillColor: WidgetStatePropertyAll(Colors.white),
-                  visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
+              const SizedBox(height: 40),
+              _buildTextField(
+                controller: usernameController,
+                hintText: 'Username',
+                icon: Icons.person,
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: 313.00,
-                height: 44,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 150,
-                      height: 44,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            String username = usernameController.text;
-                            String password = passwordController.text;
-                            login(username, password);
-                          },
-                          style: ButtonStyle(
-                              backgroundColor: const WidgetStatePropertyAll(
-                                  Color.fromARGB(255, 0, 122, 255)),
-                              shape: WidgetStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)))),
-                          child: const Text(
-                            'LOG-IN',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          )),
-                    ),
-                    const SizedBox(
-                      width: 13,
-                    ),
-                    SizedBox(
-                      width: 150,
-                      height: 44,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/signup');
-                        },
-                        style: ButtonStyle(
-                            backgroundColor:
-                                const WidgetStatePropertyAll(Colors.white),
-                            shape: WidgetStatePropertyAll(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)))),
-                        child: const Text(
-                          'REGISTER',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 0, 122, 255),
-                              fontWeight: FontWeight.bold),
+              _buildTextField(
+                controller: passwordController,
+                hintText: 'Password',
+                icon: Icons.lock,
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 150,
+                    height: 44,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final username = usernameController.text.trim();
+                        final password = passwordController.text.trim();
+                        login(username, password);
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(
+                            const Color.fromARGB(255, 0, 122, 255)),
+                        shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
+                      ),
+                      child: const Text(
+                        'LOG-IN',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 13),
+                  SizedBox(
+                    width: 150,
+                    height: 44,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/signup');
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.white),
+                        shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
+                      ),
+                      child: const Text(
+                        'REGISTER',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 122, 255),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 155),
+              const SizedBox(height: 20),
               const Text(
                 'INFT 3101 Mobile Development',
                 style: TextStyle(color: Colors.white, fontSize: 18),
@@ -213,12 +198,38 @@ class _LoginPageState extends State<LoginPage> {
               const Text(
                 '\u00a9 2024 2AIR',
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String hintText,
+    required IconData icon,
+    bool obscureText = false,
+  }) {
+    return SizedBox(
+      width: 300,
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Color(0xFFCCCCCC)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          prefixIcon: Icon(icon, color: const Color(0xFFCCCCCC)),
+        ),
+      ),
     );
   }
 }
