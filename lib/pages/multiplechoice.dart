@@ -25,7 +25,7 @@ class MultipleChoicePage extends StatefulWidget {
 
 class _MultipleChoicePageState extends State<MultipleChoicePage> {
   final QuizController _quizController = QuizController();
-  List _questions = [];
+  // List _questions = [];
   var _currentQuestion = 0;
   int _selectedAnswer = -1;
 
@@ -405,6 +405,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                           print("This is the end bruh.");
                         }
                       } else {
+                        _showAnswerModal(false);
                         // TODO: WRONG ANSWER
                         print("wrong answer!");
                       }
